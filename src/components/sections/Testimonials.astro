@@ -1,0 +1,109 @@
+---
+// Props can be added here if needed in the future
+---
+
+<section class="testimonials">
+    <div class="container">
+        <div class="section-header">
+            <h2>What Our Students Say</h2>
+            <p>
+                Real feedback from students and parents who have experienced our
+                teaching
+            </p>
+        </div>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    TuitionBase was excellent for me, the teachers aim to really
+                    push, help students go forward and provide people with good
+                    teaching. Not only this, they really helped to build my
+                    confidence in my work which enabled me to always do the best
+                    I could in exam conditions. I came out of year 12 with AAC
+                    thanks to TuitionBase for helping me believe in myself and
+                    strive for the best.
+                </div>
+                <div class="testimonial-author">Rahissa (Year 12)</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    Funniest story ever. A leaflet came through our door just at
+                    the right time as my daughter was struggling with her GCSE
+                    studies. After a very welcoming meeting and discussion and
+                    one term later my daughter exceeded her GCSE predicted
+                    grades! We were very happy!! The price was affordable, the
+                    tutors were friendly and experienced. They made studying fun
+                    and that's what my daughter needed.
+                </div>
+                <div class="testimonial-author">Ava (Niah's mum - Year 11)</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    Overall I am very satisfied with the service that Tuition
+                    Base provides. The teachers are qualified in the subject
+                    they teach and they provide lots of materials and worksheets
+                    during the lesson. The average number of students in a group
+                    is 4-5 which is very good as it allows the teacher to tailor
+                    their teaching personally to each student.
+                </div>
+                <div class="testimonial-author">
+                    Shelina (Fahmida & Sanjidah's mum)
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style lang="scss">
+    /* Testimonials */
+    .testimonials {
+        background: #ffffff;
+    }
+
+    .testimonial-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 32px;
+        margin-top: 48px;
+    }
+
+    .testimonial-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 32px;
+        border-radius: 15px;
+        background: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .testimonial-card::before {
+        content: '"';
+        position: absolute;
+        top: -0.3em;
+        left: 0;
+        font-size: 80px;
+        color: #0bb2f0;
+        font-weight: 700;
+        font-style: italic;
+        line-height: 1;
+    }
+
+    .testimonial-text {
+        margin-bottom: 24px;
+        line-height: 1.6;
+        color: #555;
+        font-style: italic;
+    }
+
+    .testimonial-author {
+        font-weight: bold;
+        color: #333;
+    }
+
+    @media (max-width: 768px) {
+        .testimonial-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

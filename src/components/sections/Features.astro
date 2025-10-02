@@ -1,0 +1,138 @@
+<section class="features" id="why-us">
+    <div class="container">
+        <div class="section-header">
+            <h2>Why Study With Us</h2>
+            <p>
+                Discover what makes TuitionBase the right choice for your
+                child's education
+            </p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <h3>Expert Teachers</h3>
+                <p>
+                    Our qualified tutors are specialists in their subjects and
+                    trained in our proven methodology to ensure consistent,
+                    high-quality teaching across all centres.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Small Groups</h3>
+                <p>
+                    Teaching in small groups of 4-5 students allows maximum
+                    student-tutor attention while maintaining beneficial
+                    student-to-student interaction.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Progress Tracking</h3>
+                <p>
+                    Monthly progress reports and continuous monitoring ensure
+                    parents stay informed about their child's development and
+                    achievements.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-pound-sign"></i>
+                </div>
+                <h3>Affordable Rates</h3>
+                <p>
+                    Quality education at competitive prices with various
+                    discounts available for multiple bookings and siblings.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>Multiple Locations</h3>
+                <p>
+                    Convenient locations across London including Enfield,
+                    Edmonton, and Forest Gate, all easily accessible by public
+                    transport.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <h3>OFSTED Registered</h3>
+                <p>
+                    All our centres are OFSTED registered, ensuring we meet the
+                    highest standards of education and safeguarding.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style is:global lang="scss">
+    /* Features Grid */
+    .features {
+        background: #f8f9fa;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 32px;
+        margin-top: 48px;
+    }
+
+    .feature-card {
+        background: white;
+        padding: 32px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        transition:
+            transform 0.3s,
+            box-shadow 0.3s;
+        cursor: pointer;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #0bb2f0, #00acec);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 24px;
+        color: white;
+        font-size: 32px;
+    }
+
+    .feature-card h3 {
+        color: #055776;
+        margin-bottom: 16px;
+        font-size: 22px;
+    }
+
+    .feature-card p {
+        color: #666;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

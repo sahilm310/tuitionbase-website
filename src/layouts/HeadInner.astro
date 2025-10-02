@@ -1,0 +1,38 @@
+---
+const BASE_URL = import.meta.env.BASE_URL;
+const fontNames = [
+    "Mont-Heavy",
+    "Gontserrat-Regular",
+    "Gontserrat-SemiBold",
+    "Gontserrat-Bold",
+];
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>
+    TuitionBase | Expert Tuition in Maths, English, Science & 11+ Coaching
+</title>
+<meta
+    name="description"
+    content="Professional tuition centres across London teaching KS1 to A Level Maths, English, Biology, Chemistry and Physics with affordable pricing"
+/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet"
+/>
+
+{
+    fontNames.map((font) => {
+        return (
+            <link
+                rel="preload"
+                href={`${BASE_URL}content/fonts/${font}.woff2`}
+                as="font"
+                type="font/woff2"
+                crossorigin
+            />
+        );
+    })
+}

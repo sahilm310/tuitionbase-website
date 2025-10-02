@@ -1,0 +1,152 @@
+---
+import Footer from "../components/sections/Footer.astro";
+import Header from "../components/sections/Header.astro";
+import WhatsappButton from "../components/WhatsappButton.astro";
+import HeadInner from "./HeadInner.astro";
+---
+
+<html lang="en">
+    <head>
+        <HeadInner />
+    </head>
+    <body>
+        <Header />
+        <slot />
+        <WhatsappButton />
+        <Footer />
+    </body>
+</html>
+
+<style is:global lang="scss">
+    @mixin fontFace($family, $file, $weight: "normal") {
+        @font-face {
+            font-family: #{$family};
+            src:
+                url("/content/fonts/#{$file}.woff2") format("woff2"),
+                url("/content/fonts/#{$file}.woff") format("woff");
+            font-weight: $weight;
+            font-style: normal;
+            font-display: swap;
+        }
+    }
+
+    /* include font faces */
+    @include fontFace("Mont", "Mont-Heavy");
+    @include fontFace("Gontserrat", "Gontserrat-Regular", 400);
+    @include fontFace("Gontserrat", "Gontserrat-SemiBold", 600);
+    @include fontFace("Gontserrat", "Gontserrat-Bold", 700);
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "Gontserrat", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+    }
+
+    h1,
+    h2,
+    h3 {
+        font-family: "Mont", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+    strong {
+        font-weight: 600;
+    }
+
+    /* Section Headers */
+
+    section {
+        padding: 82px 32px;
+    }
+    .section-header {
+        text-align: center;
+        margin-bottom: 48px;
+    }
+
+    .section-header h2 {
+        font-size: 40px;
+        color: #333;
+        margin-bottom: 16px;
+    }
+
+    .section-header p {
+        font-size: 19px;
+        color: #666;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* Container */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* Features Grid */
+    .features {
+        background: #f8f9fa;
+    }
+    /* WhatsApp Button */
+    .whatsapp-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background: #25d366;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 29px;
+        text-decoration: none;
+        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        z-index: 1000;
+        transition: transform 0.3s;
+    }
+
+    .whatsapp-btn:hover {
+        transform: scale(1.1);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .fade-in-up {
+        animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    /* Loading animation */
+    @keyframes pulse {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.5;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .loading {
+        animation: pulse 1.5s infinite;
+    }
+</style>

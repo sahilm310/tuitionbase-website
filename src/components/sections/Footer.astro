@@ -1,0 +1,106 @@
+---
+const BASE_URL = import.meta.env.BASE_URL;
+---
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>Contact Us</h3>
+            <div class="contact-info">
+                <i class="fas fa-phone"></i>
+                <span>0203 633 4822</span>
+            </div>
+            <div class="contact-info">
+                <i class="fas fa-envelope"></i>
+                <span>info@tuitionbase.co.uk</span>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h3>Accreditations</h3>
+            <div class="certifications">
+                <img
+                    src={`${BASE_URL}content/images/credits/offsteadaproved.png`}
+                    alt="OFSTED Approved"
+                    class="ofsted-badge"
+                />
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>
+            &copy; 2025 TuitionBase - An OFSTED registered centre. All rights
+            reserved.
+        </p>
+    </div>
+</footer>
+
+<style lang="scss">
+    /* Footer */
+    .footer {
+        background: #333;
+        color: white;
+        padding: 48px 32px 16px;
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 32px;
+    }
+
+    .footer-section h3 {
+        margin-bottom: 16px;
+        color: #0bb2f0;
+    }
+
+    .footer-section ul {
+        list-style: none;
+    }
+
+    .footer-section ul li {
+        margin-bottom: 8px;
+    }
+
+    .footer-section ul li a {
+        color: #ccc;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .footer-section ul li a:hover {
+        color: #0bb2f0;
+    }
+
+    .contact-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 16px;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        margin-top: 32px;
+        padding-top: 32px;
+        border-top: 1px solid #555;
+        color: #999;
+    }
+
+    .certifications {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-top: 16px;
+    }
+
+    .ofsted-badge {
+        max-width: 200px;
+        height: auto;
+        background: white;
+        padding: 16px;
+        border-radius: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+</style>

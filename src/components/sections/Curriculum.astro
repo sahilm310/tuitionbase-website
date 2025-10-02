@@ -1,0 +1,38 @@
+---
+const curriculumPoints: string[] = [
+    "Provide expert tuition in <strong>Maths, English, Biology, Chemistry</strong> and <strong>Physics</strong>",
+    "<strong>Cover ALL exam boards</strong> and strictly follow the <strong>specifications</strong> provided by examination boards",
+    "<strong>Cater for A Level, IGCSE, GCSE and all key stage students</strong>",
+    "Specialise in <strong>11+ preparation</strong>",
+    "Use various online and offline resources recommended by exam boards",
+    "Ensure to cover any gaps in a student's knowledge first",
+    "Support the work carried out by schools & colleges",
+    "Target more difficult areas to complement existing learning",
+    "Regularly test students and provide constructive feedback",
+];
+---
+<section class="features" id="curriculum">
+    <div class="container">
+        <div class="section-header">
+            <h2>Curriculum & Subjects</h2>
+            <p>
+                We provide expert tuition across all key subjects and
+                educational levels
+            </p>
+        </div>
+        <div class="approach-text">
+            <ul>
+                {curriculumPoints.map((point) => (
+                    <li><p set:html={point}></p></li>
+                ))}
+            </ul>
+        </div>
+    </div>
+</section>
+
+<style lang="scss">
+.approach-text ul {
+    max-width: 800px;
+    margin: 0 auto;
+}
+</style>

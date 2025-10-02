@@ -1,0 +1,98 @@
+---
+const approachPoints: string[] = [
+    "We believe in building foundations for sustainable education",
+    "Our objective is not just to enable students to pass exams",
+    "We strive to help our students learn how to learn",
+    "We focus on individual needs rather than teaching the group",
+    "Diagnostic tests allow us to devise tailored learning for each student",
+    "Students are taught one-on-one within their small groups",
+    "Regular engagement with parents and monthly progress reports",
+];
+const BASE_URL = import.meta.env.BASE_URL;
+---
+
+<section class="approach" id="approach">
+    <div class="container">
+        <div class="approach-content">
+            <div class="approach-text">
+                <h2>Our Approach</h2>
+                <ul>
+                    {
+                        approachPoints.map((point) => (
+                            <li>
+                                <p>{point}</p>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+            <!-- todo: update to new video -->
+            <div class="approach-video">
+                <video controls muted autoplay loop>
+                    <source
+                        src={`${BASE_URL}content/videos/short_vid_2.mp4`}
+                        type="video/mp4"
+                    />
+                    <p>Your browser doesn't support video playback.</p>
+                </video>
+            </div>
+        </div>
+    </div>
+</section>
+<style is:global lang="scss">
+    /* Approach Section */
+    .approach {
+        background: white;
+    }
+
+    .approach-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 64px;
+        align-items: center;
+    }
+
+    .approach-text ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .approach-text li {
+        display: flex;
+        align-items: center;
+        padding: 13px 0;
+    }
+
+    .approach-text li p {
+        text-wrap: balance;
+    }
+
+    .approach-text li::before {
+        content: "✓";
+        color: #0bb2f0;
+        // font-weight: bold;
+        font-size: 19px;
+        flex-shrink: 0;
+        margin-right: 16px;
+    }
+
+    .approach-video {
+        position: relative;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .approach-video video {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    @media (max-width: 768px) {
+        .approach-content {
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+    }
+</style>

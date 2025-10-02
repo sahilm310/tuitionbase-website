@@ -1,0 +1,94 @@
+---
+import VideoBackground from "../VideoBackground.astro";
+---
+
+<section class="hero">
+    <VideoBackground />
+    <div class="hero-content fade-in-up">
+        <h1>
+            <span class="hero-highlight"> TuitionBase</span>
+            offers expert tuition to students of
+            <span class="hero-highlight">5-18</span>
+            years within a safe and
+            <span class="hero-highlight">secure environment</span>
+        </h1>
+        <p>
+            Professional tuition in Maths, English, Biology, Chemistry and
+            Physics across multiple London centres
+        </p>
+        <!-- <img
+            src="https://tuitionbase.co.uk/images/banner_logo.png"
+            alt="TuitionBase Credentials"
+            class="credentials-image"
+        /> -->
+    </div>
+</section>
+
+<style lang="scss">
+    /* Hero Section */
+    .hero {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 128px 32px 64px;
+        height: 100svh;
+        // background: linear-gradient(
+        //         rgba(22, 22, 22, 0.7),
+        //         rgba(51, 51, 51, 0.7)
+        //     ),
+        //     url("https://tuitionbase.co.uk/images/homebanner.png");
+        // background-size: cover;
+        // background-position: center;
+        // background-repeat: no-repeat;
+        color: white;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .hero-content {
+        max-width: 860px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+        margin-bottom: 32px;
+    }
+
+    .hero-highlight {
+        color: #0bb2f0;
+    }
+
+    .hero p {
+        font-size: 21px;
+        margin-bottom: 32px;
+        color: #f3f3f3;
+        text-wrap: balance;
+        text-wrap: pretty;
+    }
+
+    .credentials-image {
+        width: 90%;
+        max-width: 420px;
+        display: block;
+        margin: 32px auto 0 0;
+    }
+
+    @media (max-width: 768px) {
+        .hero h1 {
+            font-size: 32px;
+        }
+
+        .hero p {
+            font-size: 18px;
+        }
+
+        .credentials-image {
+            margin: 22px auto 0;
+            width: 98%;
+        }
+    }
+</style>

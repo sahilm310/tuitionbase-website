@@ -1,0 +1,125 @@
+---
+// Props can be added here if needed in the future
+---
+
+<section class="branches" id="branches">
+    <div class="container">
+        <div class="section-header">
+            <h2>Our Locations</h2>
+            <p>Find a TuitionBase centre near you</p>
+        </div>
+        <div class="branches-grid">
+            <div class="branch-card">
+                <div class="branch-header">
+                    <i class="fas fa-map-marker-alt branch-pin"></i>
+                    <h3>TuitionBase Enfield</h3>
+                </div>
+                <div class="branch-info">
+                    <p>Oasis Academy Hadley</p>
+                    <p>South Street, Enfield EN3 4PX</p>
+                    <p>
+                        <i class="fas fa-envelope"></i> enfield@tuitionbase.co.uk
+                    </p>
+                    <div class="ofsted-info">
+                        <p>OFSTED Registration: EY545755</p>
+                    </div>
+                </div>
+            </div>
+            <div class="branch-card">
+                <div class="branch-header">
+                    <i class="fas fa-map-marker-alt branch-pin"></i>
+                    <h3>TuitionBase Edmonton</h3>
+                </div>
+                <div class="branch-info">
+                    <p>The Latymer School</p>
+                    <p>Haselbury Road, London N9 9TN</p>
+                    <p>
+                        <i class="fas fa-envelope"></i> edmonton@tuitionbase.co.uk
+                    </p>
+                    <div class="ofsted-info">
+                        <p>OFSTED Registration: EY552284</p>
+                    </div>
+                </div>
+            </div>
+            <div class="branch-card">
+                <div class="branch-header">
+                    <i class="fas fa-map-marker-alt branch-pin"></i>
+                    <h3>TuitionBase Forest Gate</h3>
+                </div>
+                <div class="branch-info">
+                    <p>Forest Gate Community School</p>
+                    <p>Forest Lane, London E7 9BB</p>
+                    <p>
+                        <i class="fas fa-envelope"></i> forestgate@tuitionbase.co.uk
+                    </p>
+                    <div class="ofsted-info">
+                        <p>OFSTED Registration: EY553940</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<style lang="scss">
+    /* Branches Section */
+    .branches {
+        background: #f8f9fa;
+    }
+
+    .branches-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 32px;
+        margin-top: 48px;
+    }
+
+    .branch-card {
+        background: linear-gradient(135deg, #0bb2f0, #00acec);
+        color: white;
+        padding: 32px;
+        border-radius: 15px;
+        text-align: center;
+        transition: transform 0.3s;
+    }
+
+    .branch-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .branch-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 16px;
+    }
+
+    .branch-pin {
+        font-size: 24px;
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .branch-card h3 {
+        margin-bottom: 16px;
+        font-size: 22px;
+        margin: 0;
+    }
+
+    .branch-info p {
+        margin-bottom: 8px;
+        opacity: 0.9;
+    }
+
+    .ofsted-info {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+        .branches-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
