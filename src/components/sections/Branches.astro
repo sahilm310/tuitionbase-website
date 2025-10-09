@@ -1,5 +1,24 @@
 ---
-// Props can be added here if needed in the future
+const branches = [
+    {
+        mapUrl: "https://maps.app.goo.gl/MWmWY6Z21fPyphqq6",
+        name: "TuitionBase Enfield",
+        address: ["Oasis Academy Hadley", "South Street, Enfield EN3 4PX"],
+        ofstedNumber: "EY545755",
+    },
+    {
+        mapUrl: "https://maps.app.goo.gl/TdmKreorm52gdsHk9",
+        name: "TuitionBase Edmonton",
+        address: ["The Latymer School", "Haselbury Road, London N9 9TN"],
+        ofstedNumber: "EY552284",
+    },
+    {
+        mapUrl: "https://maps.app.goo.gl/5hwQARsPHZBq4mUQ9",
+        name: "TuitionBase Forest Gate",
+        address: ["Forest Gate Community School", "Forest Lane, London E7 9BB"],
+        ofstedNumber: "EY553940",
+    },
+];
 ---
 
 <section class="branches" id="branches">
@@ -9,60 +28,34 @@
             <p>Find a TuitionBase centre near you</p>
         </div>
         <div class="branches-grid">
-            <a
-                class="branch-card"
-                href="https://maps.app.goo.gl/MWmWY6Z21fPyphqq6"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <div class="branch-header">
-                    <i class="fas fa-map-marker-alt branch-pin"></i>
-                    <h3>TuitionBase Enfield</h3>
-                </div>
-                <div class="branch-info">
-                    <p>Oasis Academy Hadley</p>
-                    <p>South Street, Enfield EN3 4PX</p>
-                    <div class="ofsted-info">
-                        <p>OFSTED Registration: EY545755</p>
-                    </div>
-                </div>
-            </a>
-            <a
-                class="branch-card"
-                href="https://maps.app.goo.gl/TdmKreorm52gdsHk9"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <div class="branch-header">
-                    <i class="fas fa-map-marker-alt branch-pin"></i>
-                    <h3>TuitionBase Edmonton</h3>
-                </div>
-                <div class="branch-info">
-                    <p>The Latymer School</p>
-                    <p>Haselbury Road, London N9 9TN</p>
-                    <div class="ofsted-info">
-                        <p>OFSTED Registration: EY552284</p>
-                    </div>
-                </div>
-            </a>
-            <a
-                class="branch-card"
-                href="https://maps.app.goo.gl/5hwQARsPHZBq4mUQ9"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <div class="branch-header">
-                    <i class="fas fa-map-marker-alt branch-pin"></i>
-                    <h3>TuitionBase Forest Gate</h3>
-                </div>
-                <div class="branch-info">
-                    <p>Forest Gate Community School</p>
-                    <p>Forest Lane, London E7 9BB</p>
-                    <div class="ofsted-info">
-                        <p>OFSTED Registration: EY553940</p>
-                    </div>
-                </div>
-            </a>
+            {
+                branches.map((branch) => {
+                    return (
+                        <a
+                            class="branch-card"
+                            href={branch.mapUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <div class="branch-header">
+                                <i class="fas fa-map-marker-alt branch-pin" />
+                                <h3>{branch.name}</h3>
+                            </div>
+                            <div class="branch-info">
+                                {branch.address.map((addressLine) => (
+                                    <p>{addressLine}</p>
+                                ))}
+                                <div class="ofsted-info">
+                                    <p>
+                                        OFSTED Registration:{" "}
+                                        {branch.ofstedNumber}
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    );
+                })
+            }
         </div>
     </div>
 </section>

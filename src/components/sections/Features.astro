@@ -1,3 +1,38 @@
+---
+const features = [
+    {
+        icon: "chalkboard-teacher",
+        heading: "Expert Teachers",
+        text: "Our qualified tutors are specialists in their subjects and trained in our proven methodology to ensure consistent, high-quality teaching across all centres.",
+    },
+    {
+        icon: "users",
+        heading: "Small Groups",
+        text: "Teaching in small groups of 4-5 students allows maximum student-tutor attention while maintaining beneficial student-to-student interaction.",
+    },
+    {
+        icon: "chart-line",
+        heading: "Progress Tracking",
+        text: "Monthly progress reports and continuous monitoring ensure parents stay informed about their child's development and achievements.",
+    },
+    {
+        icon: "pound-sign",
+        heading: "Affordable Rates",
+        text: "Quality education at competitive prices with various discounts available for multiple bookings and siblings.",
+    },
+    {
+        icon: "map-marker-alt",
+        heading: "Multiple Locations",
+        text: "Convenient locations across London including Enfield, Edmonton, and Forest Gate, all easily accessible by public transport.",
+    },
+    {
+        icon: "certificate",
+        heading: "OFSTED Registered",
+        text: "All our centres are OFSTED registered, ensuring we meet the highest standards of education and safeguarding.",
+    },
+];
+---
+
 <section class="features" id="why-us">
     <div class="container">
         <div class="section-header">
@@ -8,70 +43,17 @@
             </p>
         </div>
         <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                </div>
-                <h3>Expert Teachers</h3>
-                <p>
-                    Our qualified tutors are specialists in their subjects and
-                    trained in our proven methodology to ensure consistent,
-                    high-quality teaching across all centres.
-                </p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h3>Small Groups</h3>
-                <p>
-                    Teaching in small groups of 4-5 students allows maximum
-                    student-tutor attention while maintaining beneficial
-                    student-to-student interaction.
-                </p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <h3>Progress Tracking</h3>
-                <p>
-                    Monthly progress reports and continuous monitoring ensure
-                    parents stay informed about their child's development and
-                    achievements.
-                </p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-pound-sign"></i>
-                </div>
-                <h3>Affordable Rates</h3>
-                <p>
-                    Quality education at competitive prices with various
-                    discounts available for multiple bookings and siblings.
-                </p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-map-marker-alt"></i>
-                </div>
-                <h3>Multiple Locations</h3>
-                <p>
-                    Convenient locations across London including Enfield,
-                    Edmonton, and Forest Gate, all easily accessible by public
-                    transport.
-                </p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
-                <h3>OFSTED Registered</h3>
-                <p>
-                    All our centres are OFSTED registered, ensuring we meet the
-                    highest standards of education and safeguarding.
-                </p>
-            </div>
+            {
+                features.map((feature) => (
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class={`fas fa-${feature.icon}`} />
+                        </div>
+                        <h3>{feature.heading}</h3>
+                        <p>{feature.text}</p>
+                    </div>
+                ))
+            }
         </div>
     </div>
 </section>

@@ -1,5 +1,13 @@
 ---
-// Props can be added here if needed in the future
+import TestimonialsData from "../../config/testimonials.json";
+
+// Function to shuffle array and return [count] items
+function getRandomTestimonials(testimonials: any[], count: number) {
+    const shuffled = [...testimonials].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+}
+
+const testimonials = getRandomTestimonials(TestimonialsData, 3);
 ---
 
 <section class="testimonials">
@@ -12,43 +20,14 @@
             </p>
         </div>
         <div class="testimonial-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-text">
-                    TuitionBase was excellent for me, the teachers aim to really
-                    push, help students go forward and provide people with good
-                    teaching. Not only this, they really helped to build my
-                    confidence in my work which enabled me to always do the best
-                    I could in exam conditions. I came out of year 12 with AAC
-                    thanks to TuitionBase for helping me believe in myself and
-                    strive for the best.
+            {testimonials.map((testimonial) => (
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        {testimonial.text}
+                    </div>
+                    <div class="testimonial-author">{testimonial.author}</div>
                 </div>
-                <div class="testimonial-author">Rahissa (Year 12)</div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-text">
-                    Funniest story ever. A leaflet came through our door just at
-                    the right time as my daughter was struggling with her GCSE
-                    studies. After a very welcoming meeting and discussion and
-                    one term later my daughter exceeded her GCSE predicted
-                    grades! We were very happy!! The price was affordable, the
-                    tutors were friendly and experienced. They made studying fun
-                    and that's what my daughter needed.
-                </div>
-                <div class="testimonial-author">Ava (Niah's mum - Year 11)</div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-text">
-                    Overall I am very satisfied with the service that Tuition
-                    Base provides. The teachers are qualified in the subject
-                    they teach and they provide lots of materials and worksheets
-                    during the lesson. The average number of students in a group
-                    is 4-5 which is very good as it allows the teacher to tailor
-                    their teaching personally to each student.
-                </div>
-                <div class="testimonial-author">
-                    Shelina (Fahmida & Sanjidah's mum)
-                </div>
-            </div>
+            ))}
         </div>
     </div>
 </section>

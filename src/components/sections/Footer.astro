@@ -1,4 +1,5 @@
 ---
+import { email, phoneNumber } from "../../config/constants";
 const BASE_URL = import.meta.env.BASE_URL;
 ---
 
@@ -8,11 +9,11 @@ const BASE_URL = import.meta.env.BASE_URL;
             <h3>Contact Us</h3>
             <div class="contact-info">
                 <i class="fas fa-phone"></i>
-                <span>0203 633 4822</span>
+                <span>{phoneNumber}</span>
             </div>
             <div class="contact-info">
                 <i class="fas fa-envelope"></i>
-                <span>info@tuitionbase.co.uk</span>
+                <span>{email}</span>
             </div>
         </div>
         <div class="footer-section">
