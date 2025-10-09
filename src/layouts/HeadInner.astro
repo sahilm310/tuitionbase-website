@@ -1,4 +1,6 @@
 ---
+import { websiteUrl } from "../config/constants";
+
 const BASE_URL = import.meta.env.BASE_URL;
 const fontNames = [
     "Mont-Heavy",
@@ -10,6 +12,39 @@ const fontNames = [
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-5XGDQNG05T"
+    is:inline></script>
+<script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    // Google Analytics
+    gtag("config", "G-5XGDQNG05T");
+    // Google Ads
+    gtag("config", "AW-16809928157");
+</script>
+
+<!-- Google Tag Manager -->
+<script is:inline>
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s),
+            dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", "GTM-5PNDMJ8");
+</script>
+<!-- End Google Tag Manager -->
+
 <title>
     TuitionBase | Expert Tuition in Maths, English, Science & 11+ Coaching
 </title>
@@ -17,7 +52,96 @@ const fontNames = [
     name="description"
     content="Professional tuition centres across London teaching KS1 to A Level Maths, English, Biology, Chemistry and Physics with affordable pricing"
 />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="title" content="TuitionBase" />
+<meta
+    name="Keywords"
+    content="tuition, tutors, tutors in london, english tuition, maths tuition, science tuition, tuition in london, tuition centre, gcse, london"
+/>
+
+<meta name="revisit-after" content="3 days" />
+<meta name="Reply-to" content="info@tuitionbase.co.uk" />
+<meta name="coverage" content="worldwide" />
+<meta name="Language" content="english" />
+<meta
+    name="Classification"
+    content="Tuition classes for A-levels, GCSEs, KS3, KS2 and KS1 with affordable pricing"
+/>
+<meta name="Author" content="tuitionbase.co.uk" />
+
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content="https://tuitionbase.co.uk/" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="TuitionBase" />
+<meta
+    property="og:description"
+    content="Offering expert and personalised tuition at affordable prices."
+/>
+<meta
+    property="og:image"
+    content={`${websiteUrl}/content/images/meta/og_image_630.png`}
+/>
+<meta property="og:locale" content="en_GB" />
+<meta property="og:site_name" content="TuitionBase" />
+<meta property="article:author" content="TuitionBase" />
+<meta property="article:publisher" content="TuitionBase" />
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:domain" content="tuitionbase.co.uk" />
+<meta property="twitter:url" content="https://tuitionbase.co.uk/" />
+<meta name="twitter:title" content="TuitionBase" />
+<meta
+    name="twitter:description"
+    content="Offering expert and personalised tuition at affordable prices."
+/>
+<meta
+    name="twitter:image"
+    content={`${websiteUrl}/content/images/meta/og_image_630.png`}
+/>
+
+<meta name="robots" content="index, follow" />
+
+<!-- Favicons -->
+<link
+    rel="icon"
+    type="image/x-icon"
+    href={`${BASE_URL}content/images/favicons/favicon.ico`}
+/>
+<link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href={`${BASE_URL}content/images/favicons/favicon-16x16.png`}
+/>
+<link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href={`${BASE_URL}content/images/favicons/favicon-32x32.png`}
+/>
+<link
+    rel="apple-touch-icon"
+    sizes="180x180"
+    href={`${BASE_URL}content/images/favicons/apple-touch-icon.png`}
+/>
+<link
+    rel="icon"
+    type="image/png"
+    sizes="192x192"
+    href={`${BASE_URL}content/images/favicons/android-chrome-192x192.png`}
+/>
+
+<link
+    rel="icon"
+    type="image/png"
+    sizes="512x512"
+    href={`${BASE_URL}content/images/favicons/android-chrome-192x192.png`}
+/>
+<link
+    rel="manifest"
+    href={`${BASE_URL}content/images/favicons/site.webmanifest`}
+/>
+
 <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     rel="stylesheet"
@@ -36,3 +160,35 @@ const fontNames = [
         );
     })
 }
+
+<script type="application/ld+json" is:inline>
+    {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "TuitionBase",
+        "description": "Professional tuition centres across London teaching KS1 to A Level Maths, English, Biology, Chemistry and Physics",
+        "url": "https://tuitionbase.co.uk",
+        "logo": "https://tuitionbase.co.uk/content/images/tb-logo.png",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "London",
+            "addressCountry": "GB"
+        },
+        "telephone": "0203 633 4822",
+        "email": "info@tuitionbase.co.uk",
+        "areaServed": "London",
+        "serviceType": [
+            "Mathematics Tutoring",
+            "English Tutoring",
+            "Science Tutoring",
+            "11+ Preparation"
+        ]
+    }
+</script>
+
+<link rel="canonical" href={`${websiteUrl}`} />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+<link rel="preconnect" href="https://www.googletagmanager.com" />
+<link rel="preconnect" href="https://www.google-analytics.com" />
