@@ -14,20 +14,17 @@ const testimonials = getRandomTestimonials(TestimonialsData, 3);
     <div class="container">
         <div class="section-header">
             <h2>What Our Students Say</h2>
-            <p>
-                Real feedback from students and parents who have experienced our
-                teaching
-            </p>
+            <p>Real feedback from students and parents who have experienced our teaching</p>
         </div>
         <div class="testimonial-grid">
-            {testimonials.map((testimonial) => (
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        {testimonial.text}
+            {
+                testimonials.map((testimonial) => (
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">{testimonial.text}</div>
+                        <div class="testimonial-author">{testimonial.author}</div>
                     </div>
-                    <div class="testimonial-author">{testimonial.author}</div>
-                </div>
-            ))}
+                ))
+            }
         </div>
     </div>
 </section>

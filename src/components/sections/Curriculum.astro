@@ -11,28 +11,30 @@ const curriculumPoints: string[] = [
     "Regularly test students and provide constructive feedback",
 ];
 ---
+
 <section class="features" id="curriculum">
     <div class="container">
         <div class="section-header">
             <h2>Curriculum & Subjects</h2>
-            <p>
-                We provide expert tuition across all key subjects and
-                educational levels
-            </p>
+            <p>We provide expert tuition across all key subjects and educational levels</p>
         </div>
         <div class="approach-text">
             <ul>
-                {curriculumPoints.map((point) => (
-                    <li><p set:html={point}></p></li>
-                ))}
+                {
+                    curriculumPoints.map((point) => (
+                        <li>
+                            <p set:html={point} />
+                        </li>
+                    ))
+                }
             </ul>
         </div>
     </div>
 </section>
 
 <style lang="scss">
-.approach-text ul {
-    max-width: 800px;
-    margin: 0 auto;
-}
+    .approach-text ul {
+        max-width: 800px;
+        margin: 0 auto;
+    }
 </style>

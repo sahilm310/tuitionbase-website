@@ -1,0 +1,11 @@
+# Ignore artifacts:
+dist
+node_modules
+dotnet
+src/sass
+*.css
+public
+readme.md
+.eslintrc.cjs
+vite.config.ts
+bitbucket-pipelines.yml

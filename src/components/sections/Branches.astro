@@ -31,12 +31,7 @@ const branches = [
             {
                 branches.map((branch) => {
                     return (
-                        <a
-                            class="branch-card"
-                            href={branch.mapUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
+                        <a class="branch-card" href={branch.mapUrl} target="_blank" rel="noopener noreferrer">
                             <div class="branch-header">
                                 <i class="fas fa-map-marker-alt branch-pin" />
                                 <h3>{branch.name}</h3>
@@ -46,10 +41,7 @@ const branches = [
                                     <p>{addressLine}</p>
                                 ))}
                                 <div class="ofsted-info">
-                                    <p>
-                                        OFSTED Registration:{" "}
-                                        {branch.ofstedNumber}
-                                    </p>
+                                    <p>OFSTED Registration: {branch.ofstedNumber}</p>
                                 </div>
                             </div>
                         </a>
