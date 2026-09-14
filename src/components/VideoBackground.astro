@@ -15,12 +15,15 @@ const { videoSrc = `${BASE_URL}content/videos/background.mp4`, className = "" } 
         muted
         loop
         playsinline
+        webkit-playsinline
+        preload="auto"
         class="background-video"
         poster={`${BASE_URL}content/videos/background-poster.jpg`}
     >
         <source src={videoSrc} type="video/mp4" />
         Your browser does not support the video tag.
     </video>
+
     <div class="video-overlay"></div>
     <div class="content">
         <slot />
