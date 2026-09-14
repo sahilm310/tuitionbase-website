@@ -22,15 +22,7 @@ const fontNames = ["Mont-Heavy", "Gontserrat-Regular", "Gontserrat-SemiBold", "G
 
 {
     fontNames.map((font) => {
-        return (
-            <link
-                rel="preload"
-                href={`${BASE_URL}content/fonts/${font}.woff2`}
-                as="font"
-                type="font/woff2"
-                crossorigin
-            />
-        );
+        return <link rel="preload" href={`${BASE_URL}content/fonts/${font}.woff2`} as="font" type="font/woff2" crossorigin />;
     })
 }
 
