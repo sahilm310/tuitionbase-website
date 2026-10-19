@@ -1,0 +1,31 @@
+# TuitionBase
+
+> TuitionBase is an OFSTED-registered tuition provider running small-group classes (maximum 6 students) in North and East London. It teaches Maths, English, Biology, Chemistry and Physics from KS1 to A Level (including GCSE and IGCSE) and specialises in 11+ preparation.
+
+## Key facts
+
+- Subjects: Maths, English, Biology, Chemistry, Physics, 11+ preparation
+- Levels: Key Stage 1, 2 and 3, GCSE, IGCSE, A Level
+- Exam boards: all major exam boards are covered
+- Class size: small groups, maximum 6 students
+- Registered childcare provider; childcare vouchers accepted
+- Universal Credit can pay up to 85% of registered childcare costs (maximum £1,071.09 per month for one child, £1,836.16 per month for two or more children)
+- Class times: Saturday and Sunday, 10:00-14:30
+- Phone: 0203 633 4822
+- WhatsApp: +44 7932 391843
+- Email: info@tuitionbase.co.uk
+- Website: https://tuitionbase.co.uk
+
+## Centres (all OFSTED registered)
+
+- TuitionBase Enfield: Oasis Academy Hadley, South Street, Enfield EN3 4PX (OFSTED EY545755)
+- TuitionBase Edmonton: The Latymer School, Haselbury Road, London N9 9TN (OFSTED EY552284)
+- TuitionBase Forest Gate: Forest Gate Community School, Forest Lane, London E7 9BB (OFSTED EY553940)
+
+## Pages
+
+- [Home](https://tuitionbase.co.uk/): overview, approach, curriculum, testimonials, locations, FAQ and contact details
+- [Curriculum and subjects](https://tuitionbase.co.uk/#curriculum)
+- [Locations](https://tuitionbase.co.uk/#branches)
+- [FAQ](https://tuitionbase.co.uk/#faq)
+- [Contact](https://tuitionbase.co.uk/#contact)

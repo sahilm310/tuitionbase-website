@@ -1,0 +1,157 @@
+---
+const faqs = [
+    {
+        q: "What subjects does TuitionBase teach?",
+        a: "We teach Maths, English, Biology, Chemistry and Physics, and specialise in 11+ preparation. We cover Key Stage 1 to A Level, including GCSE and IGCSE, across all exam boards.",
+    },
+    {
+        q: "Where are the TuitionBase tuition centres?",
+        a: "We have centres in Enfield (Oasis Academy Hadley, EN3 4PX), Edmonton (The Latymer School, N9 9TN) and Forest Gate (Forest Gate Community School, E7 9BB) in London.",
+    },
+    {
+        q: "What are the class sizes?",
+        a: "We teach small groups with a maximum of 5 students per class, so every student gets personal attention.",
+    },
+    {
+        q: "Is TuitionBase OFSTED registered?",
+        a: "Yes. Each of our centres is OFSTED registered: Enfield (EY545755), Edmonton (EY552284) and Forest Gate (EY553940).",
+    },
+    {
+        q: "Are you a registered childcare centre?",
+        a: "Yes. TuitionBase is a registered childcare provider, and each of our centres is OFSTED registered.",
+    },
+    {
+        q: "Do you accept childcare vouchers?",
+        a: "Yes, we accept childcare vouchers. Contact us on 0203 633 4822 or info@tuitionbase.co.uk to find out how to pay with them.",
+    },
+    {
+        q: "Can Universal Credit help pay for childcare?",
+        a: "Yes. Universal Credit can pay up to 85% of your registered childcare costs. The maximum monthly amounts are £1,071.09 for one child and £1,836.16 for two or more children.",
+    },
+    {
+        q: "When are classes held?",
+        a: "Classes run on Saturdays and Sundays from 10:00 to 14:30.",
+    },
+    {
+        q: "How do I enrol or ask a question?",
+        a: "Call 0203 633 4822, message us on WhatsApp, or email info@tuitionbase.co.uk.",
+    },
+];
+
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map(({ q, a }) => ({
+        "@type": "Question",
+        name: q,
+        acceptedAnswer: { "@type": "Answer", text: a },
+    })),
+};
+---
+
+<section class="faq" id="faq">
+    <div class="container">
+        <div class="section-header">
+            <h2>Frequently Asked Questions</h2>
+        </div>
+        <div class="faq-list">
+            {
+                faqs.map(({ q, a }, i) => (
+                    <div class="faq-item">
+                        <h3>
+                            <button
+                                type="button"
+                                class="faq-question"
+                                aria-expanded="false"
+                                aria-controls={`faq-panel-${i}`}
+                                id={`faq-q-${i}`}
+                            >
+                                {q}
+                            </button>
+                        </h3>
+                        <div class="faq-answer" id={`faq-panel-${i}`} role="region" aria-labelledby={`faq-q-${i}`}>
+                            <p>{a}</p>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+</section>
+
+<script>
+    document.querySelectorAll<HTMLButtonElement>(".faq-question").forEach((button) => {
+        button.addEventListener("click", () => {
+            const open = button.getAttribute("aria-expanded") === "true";
+            button.setAttribute("aria-expanded", String(!open));
+        });
+    });
+</script>
+
+<style lang="scss">
+    .faq-list {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .faq-item {
+        border-bottom: 1px solid #d9e6f2;
+
+        &:first-child {
+            border-top: 1px solid #d9e6f2;
+        }
+    }
+
+    h3 {
+        font-size: 19px;
+        color: #333;
+    }
+
+    .faq-question {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        width: 100%;
+        padding: 20px 4px;
+        background: none;
+        border: 0;
+        font: inherit;
+        color: inherit;
+        text-align: left;
+        cursor: pointer;
+
+        &::after {
+            content: "+";
+            font-size: 28px;
+            line-height: 1;
+            color: #666;
+            transition:
+                transform 0.2s ease,
+                color 0.2s ease;
+        }
+        &:hover::after {
+            color: #0bb2f0;
+        }
+
+        &[aria-expanded="true"]::after {
+            transform: rotate(45deg);
+        }
+    }
+
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.25s ease;
+
+        p {
+            padding: 0 4px 20px;
+            color: #555;
+        }
+    }
+
+    h3:has(.faq-question[aria-expanded="true"]) + .faq-answer {
+        max-height: 350px;
+    }
+</style>

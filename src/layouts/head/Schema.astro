@@ -53,7 +53,7 @@
         ],
         "priceRange": "£",
         "currenciesAccepted": "GBP",
-        "paymentAccepted": "Cash, Card, Bank Transfer",
+        "paymentAccepted": "Cash, Card, Bank Transfer, Childcare Vouchers",
         "openingHoursSpecification": [
             {
                 "@type": "OpeningHoursSpecification",
@@ -66,6 +66,47 @@
                 "dayOfWeek": ["Sunday"],
                 "opens": "10:00",
                 "closes": "14:30"
+            }
+        ],
+        "department": [
+            {
+                "@type": ["EducationalOrganization", "LocalBusiness"],
+                "name": "TuitionBase Enfield",
+                "telephone": "0203 633 4822",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "Oasis Academy Hadley, South Street",
+                    "addressLocality": "Enfield",
+                    "postalCode": "EN3 4PX",
+                    "addressCountry": "GB"
+                },
+                "identifier": "OFSTED EY545755"
+            },
+            {
+                "@type": ["EducationalOrganization", "LocalBusiness"],
+                "name": "TuitionBase Edmonton",
+                "telephone": "0203 633 4822",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "The Latymer School, Haselbury Road",
+                    "addressLocality": "London",
+                    "postalCode": "N9 9TN",
+                    "addressCountry": "GB"
+                },
+                "identifier": "OFSTED EY552284"
+            },
+            {
+                "@type": ["EducationalOrganization", "LocalBusiness"],
+                "name": "TuitionBase Forest Gate",
+                "telephone": "0203 633 4822",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "Forest Gate Community School, Forest Lane",
+                    "addressLocality": "London",
+                    "postalCode": "E7 9BB",
+                    "addressCountry": "GB"
+                },
+                "identifier": "OFSTED EY553940"
             }
         ],
         "hasOfferCatalog": {
@@ -98,47 +139,6 @@
                 }
             ]
         }
-    }
-</script>
-
-<script type="application/ld+json" is:inline>
-    {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "What subjects do you teach?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "We teach Mathematics, English, Biology, Chemistry, Physics, and provide 11+ preparation covering all key stages from KS1 to A-Level."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Where are your tuition centres located?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "We have centres across North London including Edmonton, Enfield, and other convenient locations throughout London."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What are your class sizes?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "We offer small group tutoring with maximum 6 students per class to ensure personalized attention and effective learning."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Are you OFSTED registered?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes, TuitionBase is OFSTED registered, ensuring we meet high standards of educational provision and child safety."
-                }
-            }
-        ]
     }
 </script>
 
