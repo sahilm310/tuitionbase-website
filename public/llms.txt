@@ -1,13 +1,13 @@
 # TuitionBase
 
-> TuitionBase is an OFSTED-registered tuition provider running small-group classes (maximum 6 students) in North and East London. It teaches Maths, English, Biology, Chemistry and Physics from KS1 to A Level (including GCSE and IGCSE) and specialises in 11+ preparation.
+> TuitionBase is an OFSTED-registered tuition provider running small-group classes (maximum 5 students) in North and East London. It teaches Maths, English, Biology, Chemistry and Physics from KS1 to A Level (including GCSE and IGCSE) and specialises in 11+ preparation.
 
 ## Key facts
 
 - Subjects: Maths, English, Biology, Chemistry, Physics, 11+ preparation
 - Levels: Key Stage 1, 2 and 3, GCSE, IGCSE, A Level
 - Exam boards: all major exam boards are covered
-- Class size: small groups, maximum 6 students
+- Class size: small groups, maximum 5 students
 - Registered childcare provider; childcare vouchers accepted
 - Universal Credit can pay up to 85% of registered childcare costs (maximum £1,071.09 per month for one child, £1,836.16 per month for two or more children)
 - Class times: Saturday and Sunday, 10:00-14:30
@@ -27,5 +27,8 @@
 - [Home](https://tuitionbase.co.uk/): overview, approach, curriculum, testimonials, locations, FAQ and contact details
 - [Curriculum and subjects](https://tuitionbase.co.uk/#curriculum)
 - [Locations](https://tuitionbase.co.uk/#branches)
+- [Tuition in Enfield](https://tuitionbase.co.uk/tuition-in-enfield/)
+- [Tuition in Edmonton](https://tuitionbase.co.uk/tuition-in-edmonton/)
+- [Tuition in Forest Gate](https://tuitionbase.co.uk/tuition-in-forest-gate/)
 - [FAQ](https://tuitionbase.co.uk/#faq)
 - [Contact](https://tuitionbase.co.uk/#contact)
