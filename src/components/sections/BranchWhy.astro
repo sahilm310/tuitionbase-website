@@ -1,0 +1,46 @@
+---
+import type { Branch } from "../../config/branches";
+
+interface Props {
+    branch: Branch;
+}
+const { branch } = Astro.props;
+---
+
+<section class="why">
+    <div class="container">
+        <h2>Why families in {branch.area} choose TuitionBase</h2>
+        <ul>
+            <li>Registered childcare centre, OFSTED registered ({branch.ofstedNumber})</li>
+            <li>Small groups of up to 5 students for personal attention</li>
+            <li>Lessons follow exam board specifications and fill gaps in knowledge first</li>
+            <li>Regular testing with constructive feedback</li>
+            <li>Childcare vouchers accepted, and Universal Credit can help with registered childcare costs</li>
+        </ul>
+        <p class="areas">We welcome students from {branch.area} and nearby areas including {branch.nearby.join(", ")}.</p>
+    </div>
+</section>
+
+<style lang="scss">
+    .why {
+        background: #f2f9ff;
+    }
+
+    h2 {
+        font-size: 30px;
+        margin-bottom: 16px;
+    }
+
+    ul {
+        padding-left: 22px;
+        margin-bottom: 16px;
+    }
+
+    li {
+        margin-bottom: 8px;
+    }
+
+    .areas {
+        margin-top: 16px;
+    }
+</style>

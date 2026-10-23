@@ -3,11 +3,20 @@ import Footer from "../components/sections/Footer.astro";
 import Header from "../components/sections/Header.astro";
 import WhatsappButton from "../components/WhatsappButton.astro";
 import HeadInner from "./HeadInner.astro";
+
+interface Props {
+    title?: string;
+    description?: string;
+    path?: string;
+    homeSchema?: boolean;
+}
+const { title, description, path = "/", homeSchema = true } = Astro.props;
 ---
 
 <html lang="en-GB">
     <head>
-        <HeadInner />
+        <HeadInner title={title} description={description} path={path} homeSchema={homeSchema} />
+        <slot name="head" />
     </head>
     <body>
         <!-- Google Tag Manager (noscript) -->
@@ -88,7 +97,7 @@ import HeadInner from "./HeadInner.astro";
     .section-header p {
         font-size: 19px;
         color: #666;
-        max-width: 600px;
+        max-width: 740px;
         margin: 0 auto;
     }
 

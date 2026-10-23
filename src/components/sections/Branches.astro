@@ -1,66 +1,93 @@
 ---
-const branches = [
-    {
-        mapUrl: "https://maps.app.goo.gl/MWmWY6Z21fPyphqq6",
-        name: "TuitionBase Enfield",
-        address: ["Oasis Academy Hadley", "South Street, Enfield EN3 4PX"],
-        ofstedNumber: "EY545755",
-    },
-    {
-        mapUrl: "https://maps.app.goo.gl/TdmKreorm52gdsHk9",
-        name: "TuitionBase Edmonton",
-        address: ["The Latymer School", "Haselbury Road, London N9 9TN"],
-        ofstedNumber: "EY552284",
-    },
-    {
-        mapUrl: "https://maps.app.goo.gl/5hwQARsPHZBq4mUQ9",
-        name: "TuitionBase Forest Gate",
-        address: ["Forest Gate Community School", "Forest Lane, London E7 9BB"],
-        ofstedNumber: "EY553940",
-    },
-];
+import { branches as allBranches, branchPath } from "../../config/branches";
+
+interface Props {
+    heading?: string;
+    intro?: string;
+    highlight?: string;
+}
+const {
+    heading = "Our Locations",
+    intro = "Looking for tuition in London? Find a TuitionBase centre in Enfield (EN3), Edmonton (N9) or Forest Gate (E7), serving families across North and East London.",
+    highlight,
+} = Astro.props;
+const branches = [...allBranches].sort((a, b) => Number(b.slug === highlight) - Number(a.slug === highlight));
 ---
 
-<section class="branches" id="branches">
+<section class="branches" id="branches" aria-labelledby="branches-heading">
     <div class="container">
         <div class="section-header">
-            <h2>Our Locations</h2>
-            <p>Find a TuitionBase centre near you</p>
+            <h2 id="branches-heading">{heading}</h2>
+            <p>{intro}</p>
         </div>
-        <div class="branches-grid">
+        <ul class="branches-grid" role="list">
             {
                 branches.map((branch) => {
+                    const isCurrent = branch.slug === highlight;
                     return (
-                        <a class="branch-card" href={branch.mapUrl} target="_blank" rel="noopener noreferrer">
-                            <span class="branch-popover" aria-hidden="true">
-                                Click to get directions
-                            </span>
-                            <div class="branch-header">
-                                <i class="fas fa-map-marker-alt branch-pin" />
-                                <h3>{branch.name}</h3>
-                            </div>
-                            <div class="branch-info">
-                                {branch.address.map((addressLine) => (
-                                    <p>{addressLine}</p>
-                                ))}
-                                <div class="ofsted-info">
-                                    <p>OFSTED Registration: {branch.ofstedNumber}</p>
+                        <li class:list={["branch-card", { current: isCurrent }]}>
+                            <article aria-labelledby={`branch-${branch.slug}-name`}>
+                                <div class="branch-header">
+                                    <h3 id={`branch-${branch.slug}-name`}>{branch.name}</h3>
                                 </div>
-                            </div>
-                        </a>
+                                <div class="branch-info">
+                                    <a
+                                        class="button map-link"
+                                        href={branch.mapUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={`Get directions to ${branch.name}, ${branch.venue} (opens in a new tab)`}
+                                        aria-describedby={`branch-${branch.slug}-map-tip`}
+                                    >
+                                        <i class="fas fa-map-marker-alt branch-pin" aria-hidden="true" />
+                                        <address>
+                                            {[`${branch.venue}`, `${branch.street}, ${branch.locality} ${branch.postcode}`].map(
+                                                (addressLine) => (
+                                                    <p set:html={addressLine} />
+                                                )
+                                            )}
+                                        </address>
+                                        <span class="tooltip" role="tooltip" id={`branch-${branch.slug}-map-tip`}>
+                                            Open in Google Maps
+                                        </span>
+                                    </a>
+                                    <div class="ofsted-info">
+                                        <p>
+                                            OFSTED Registration: <b>{branch.ofstedNumber}</b>
+                                        </p>
+                                    </div>
+                                </div>
+                                <a
+                                    class="button"
+                                    href={branchPath(branch)}
+                                    aria-label={`Find out more about tuition in ${branch.area}`}
+                                    aria-current={isCurrent ? "page" : undefined}
+                                    aria-describedby={`branch-${branch.slug}-more-tip`}
+                                >
+                                    Find out more
+                                    <span class="tooltip" role="tooltip" id={`branch-${branch.slug}-more-tip`}>
+                                        Tuition in {branch.area}: subjects, address and FAQs
+                                    </span>
+                                </a>
+                            </article>
+                        </li>
                     );
                 })
             }
-        </div>
+        </ul>
     </div>
-</section>
-<style lang="scss">
+</section><style lang="scss">
+    .branch-card.current {
+        outline: 3px solid #0bb2f0;
+    }
+
     /* Branches Section */
     .branches {
         background: #f2f9ff;
     }
 
     .branches-grid {
+        list-style: none;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 32px;
@@ -75,40 +102,92 @@ const branches = [
         padding: 32px;
         border-radius: 15px;
         text-align: center;
-        transition: transform 0.3s;
         overflow: visible;
     }
 
-    .branch-popover {
-        position: absolute;
-        top: -36px;
-        right: 0px;
-        left: 0px;
-        margin-inline: auto;
-        width: fit-content;
-        background: rgba(#333, 0.7);
-        color: #fff;
-        padding: 6px 10px;
+    .branch-card article {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    address {
+        font-style: normal;
+    }
+
+    .button {
+        position: relative;
+        z-index: 3;
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 22px;
         border-radius: 8px;
-        font-size: 13px;
-        opacity: 0;
-        transform: translateY(6px);
+        background-color: white;
+        color: #0b7fb0;
+        font-weight: 600;
+        text-decoration: none;
         transition:
-            opacity 160ms ease,
-            transform 160ms ease;
+            background-color 0.2s ease,
+            transform 0.2s ease;
+        transform: scale(1);
+        &:hover {
+            background-color: #e6f6fd;
+            transform: scale(1.03);
+        }
+
+        &:focus-visible {
+            outline: 3px solid #333;
+            outline-offset: 3px;
+        }
+    }
+
+    .tooltip {
+        position: absolute;
+        bottom: calc(100% + 10px);
+        left: 50%;
+        width: max-content;
+        max-width: 240px;
+        padding: 6px 10px;
+        border-radius: 6px;
+        background: #333;
+        color: white;
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 1.4;
         pointer-events: none;
-        z-index: 2;
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(-50%, 4px);
+        transition:
+            opacity 0.15s ease,
+            transform 0.15s ease,
+            visibility 0.15s;
+        z-index: 10;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border: 5px solid transparent;
+            border-top-color: #333;
+        }
     }
 
-    .branch-card:hover .branch-popover,
-    .branch-card:focus .branch-popover {
+    .button:hover .tooltip,
+    .button:focus-visible .tooltip {
         opacity: 1;
-        transform: translateY(-6px);
-        pointer-events: auto;
+        visibility: visible;
+        transform: translate(-50%, 0);
     }
 
-    .branch-card:hover {
-        transform: translateY(-5px);
+    @media (prefers-reduced-motion: reduce) {
+        .button,
+        .tooltip {
+            transition: none;
+        }
     }
 
     .branch-header {
@@ -118,10 +197,13 @@ const branches = [
         gap: 8px;
         margin-bottom: 16px;
     }
-
+    .map-link {
+        width: 100%;
+        padding: 8px 16px;
+    }
     .branch-pin {
+        margin-block: 8px;
         font-size: 24px;
-        color: rgba(255, 255, 255, 0.9);
     }
 
     .branch-card h3 {
@@ -131,7 +213,6 @@ const branches = [
     }
 
     .branch-info p {
-        margin-bottom: 8px;
         opacity: 0.9;
     }
 

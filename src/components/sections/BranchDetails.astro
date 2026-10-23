@@ -1,0 +1,70 @@
+---
+import type { Branch } from "../../config/branches";
+import { email, phoneNumber, phoneNumberLink } from "../../config/constants";
+
+interface Props {
+    branch: Branch;
+}
+const { branch } = Astro.props;
+
+const subjects = ["Maths", "English", "Biology", "Chemistry", "Physics", "11+ preparation"];
+---
+
+<section class="details">
+    <div class="container grid">
+        <div>
+            <h2>TuitionBase {branch.area}</h2>
+            <address>
+                {branch.venue}<br />
+                {branch.street}<br />
+                {branch.locality}
+                <Fragment set:html={branch.postcode} />
+            </address>
+            <p><strong>OFSTED registration:</strong> {branch.ofstedNumber}</p>
+            <p><strong>Phone:</strong> <a href={`tel:${phoneNumberLink}`}>{phoneNumber}</a></p>
+            <p><strong>Email:</strong> <a href={`mailto:${email}`}>{email}</a></p>
+        </div>
+        <div>
+            <h2>Subjects we teach in {branch.area}</h2>
+            <ul>
+                {subjects.map((s) => <li>{s}</li>)}
+            </ul>
+            <p>All key stages from KS1 to A Level, including GCSE and IGCSE, covering all exam boards.</p>
+        </div>
+    </div>
+</section>
+
+<style lang="scss">
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 48px;
+    }
+
+    h2 {
+        font-size: 30px;
+        margin-bottom: 16px;
+    }
+
+    address {
+        font-style: normal;
+        margin-bottom: 16px;
+    }
+
+    p {
+        margin-bottom: 8px;
+    }
+
+    ul {
+        padding-left: 22px;
+        margin-bottom: 16px;
+    }
+
+    li {
+        margin-bottom: 8px;
+    }
+
+    a {
+        color: #1a6fb5;
+    }
+</style>

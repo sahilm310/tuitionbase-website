@@ -4,3 +4,5 @@ export const phoneNumberLink = phoneNumber.replaceAll(" ", "");
 export const email = "info@tuitionbase.co.uk";
 export const websiteUrl = "https://tuitionbase.co.uk";
 export const whatsappNumber = "447932391843";
+export const facebookUrl = "https://www.facebook.com/tuitionbase";
+export const instagramUrl = "https://www.instagram.com/tuition_base";

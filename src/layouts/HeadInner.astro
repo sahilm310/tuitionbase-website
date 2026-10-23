@@ -4,6 +4,7 @@ import Favicons from "./head/Favicons.astro";
 import SeoMeta from "./head/SeoMeta.astro";
 import Analytics from "./head/Analytics.astro";
 
+const { title, description, path = "/", homeSchema = true } = Astro.props;
 const BASE_URL = import.meta.env.BASE_URL;
 const fontNames = ["Mont-Heavy", "Gontserrat-Regular", "Gontserrat-SemiBold", "Gontserrat-Bold"];
 ---
@@ -13,9 +14,9 @@ const fontNames = ["Mont-Heavy", "Gontserrat-Regular", "Gontserrat-SemiBold", "G
 
 <Analytics />
 
-<title>TuitionBase | Expert Tuition in Maths, English, Science & 11+</title>
+<title>{title ?? "TuitionBase | Maths, English, Science & 11+"}</title>
 
-<SeoMeta />
+<SeoMeta title={title} description={description} path={path} />
 <Favicons />
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
@@ -26,7 +27,7 @@ const fontNames = ["Mont-Heavy", "Gontserrat-Regular", "Gontserrat-SemiBold", "G
     })
 }
 
-<Schema />
+{homeSchema && <Schema />}
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" />

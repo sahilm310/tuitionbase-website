@@ -1,18 +1,61 @@
 ---
 import VideoBackground from "../VideoBackground.astro";
+
+interface Action {
+    label: string;
+    href: string;
+    external?: boolean;
+    secondary?: boolean;
+}
+interface Props {
+    heading?: string;
+    intro?: string;
+    actions?: Action[];
+    compact?: boolean;
+}
+const { heading, intro, actions = [], compact = false } = Astro.props;
 ---
 
-<section class="hero">
+<section class:list={["hero", { compact }]}>
     <VideoBackground />
     <div class="hero-content fade-in-up">
-        <h1>
-            <span class="hero-highlight">TuitionBase</span> offers expert tuition to students of <span class="hero-highlight">5-18 </span>
-            years within a safe and <span class="hero-highlight">secure environment</span>
-        </h1>
-        <p>Professional tuition in Maths, English, Biology, Chemistry and Physics across multiple London centres</p>
+        {
+            heading ? (
+                <h1>
+                    <Fragment set:html={heading} />
+                </h1>
+            ) : (
+                <h1>
+                    <span class="hero-highlight">TuitionBase</span> offers expert <span class="hero-highlight">tuition in London</span> to
+                    students of <span class="hero-highlight">5-18 </span>
+                    years within a safe and <span class="hero-highlight">secure environment</span>
+                </h1>
+            )
+        }
+        <p>
+            {
+                intro ??
+                    "OFSTED-registered Maths, English, Biology, Chemistry, Physics and 11+ tuition in small groups at centres in Enfield, Edmonton and Forest Gate"
+            }
+        </p>
+        {
+            actions.length > 0 && (
+                <div class="hero-actions">
+                    {actions.map((a) => (
+                        <a
+                            class:list={["hero-btn", { secondary: a.secondary }]}
+                            href={a.href}
+                            target={a.external ? "_blank" : undefined}
+                            rel={a.external ? "noopener noreferrer" : undefined}
+                        >
+                            {a.label}
+                        </a>
+                    ))}
+                </div>
+            )
+        }
     </div>
 </section>
-
 <style lang="scss">
     /* Hero Section */
     .hero {
@@ -27,8 +70,35 @@ import VideoBackground from "../VideoBackground.astro";
         overflow: hidden;
     }
 
+    .hero.compact {
+        height: auto;
+        min-height: 70svh;
+    }
+
+    .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .hero-btn {
+        padding: 14px 28px;
+        border-radius: 8px;
+        background: #0bb2f0;
+        color: white;
+        font-weight: 600;
+        text-decoration: none;
+        border: 2px solid #0bb2f0;
+
+        &.secondary {
+            background: transparent;
+            border-color: white;
+        }
+    }
+
     .hero-content {
-        max-width: 860px;
+        max-width: 900px;
         margin: 0 auto;
         position: relative;
         z-index: 2;
@@ -39,7 +109,7 @@ import VideoBackground from "../VideoBackground.astro";
         margin-bottom: 32px;
     }
 
-    .hero-highlight {
+    .hero :global(.hero-highlight) {
         color: #0bb2f0;
     }
 

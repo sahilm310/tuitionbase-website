@@ -1,0 +1,108 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/sections/Hero.astro";
+import BranchDetails from "../components/sections/BranchDetails.astro";
+import BranchWhy from "../components/sections/BranchWhy.astro";
+import Branches from "../components/sections/Branches.astro";
+import Approach from "../components/sections/Approach.astro";
+import Testimonials from "../components/sections/Testimonials.astro";
+import Faq from "../components/sections/Faq.astro";
+import Contact from "../components/sections/Contact.astro";
+import { branches, branchPath, postcodeText, type Branch } from "../config/branches";
+import { email, facebookUrl, instagramUrl, phoneNumber, phoneNumberLink, websiteUrl } from "../config/constants";
+
+export function getStaticPaths() {
+    return branches.map((branch) => ({ params: { slug: branch.slug }, props: { branch } }));
+}
+
+const { branch } = Astro.props as { branch: Branch };
+const postcode = postcodeText(branch);
+const path = branchPath(branch);
+const pageUrl = `${websiteUrl}${path}`;
+
+const title = `Tuition in ${branch.area} | Maths, English, Science & 11+ | TuitionBase`;
+const description = `OFSTED-registered tuition in ${branch.area} (${postcode}) for ages 5-18. Small-group Maths, English, Science and 11+ classes at ${branch.venue}. Childcare vouchers accepted.`;
+
+const faqs = [
+    {
+        q: `Where is TuitionBase ${branch.area}?`,
+        a: `TuitionBase ${branch.area} is at ${branch.venue}, ${branch.street}, ${branch.locality} ${postcode}. We welcome students from ${branch.nearby.join(", ")} and surrounding areas.`,
+    },
+    {
+        q: `What tuition is available in ${branch.area}?`,
+        a: `Our ${branch.area} centre teaches Maths, English, Biology, Chemistry, Physics and 11+ preparation from Key Stage 1 to A Level, including GCSE and IGCSE, across all exam boards.`,
+    },
+    {
+        q: `Is TuitionBase ${branch.area} OFSTED registered?`,
+        a: `Yes. TuitionBase ${branch.area} is a registered childcare centre with OFSTED registration number ${branch.ofstedNumber}.`,
+    },
+    {
+        q: "What are the class sizes?",
+        a: "We teach small groups with a maximum of 5 students per class, so every student gets personal attention.",
+    },
+    {
+        q: "Do you accept childcare vouchers?",
+        a: `Yes, we accept childcare vouchers. Call ${phoneNumber} or email ${email} to find out how to pay with them.`,
+        links: [
+            { href: "https://www.gov.uk/help-with-childcare-costs/childcare-vouchers", label: "GOV.UK: Childcare vouchers" },
+            { href: "https://www.gov.uk/tax-free-childcare", label: "GOV.UK: Tax-Free Childcare (the scheme that replaced vouchers)" },
+        ],
+    },
+];
+
+const jsonLd = [
+    {
+        "@context": "https://schema.org",
+        "@type": ["EducationalOrganization", "LocalBusiness"],
+        "@id": `${pageUrl}#centre`,
+        name: branch.name,
+        description,
+        url: pageUrl,
+        image: `${websiteUrl}/content/images/meta/og_image_630.png`,
+        telephone: phoneNumber,
+        email,
+        identifier: `OFSTED ${branch.ofstedNumber}`,
+        parentOrganization: { "@type": "EducationalOrganization", name: "TuitionBase", url: websiteUrl },
+        hasMap: branch.mapUrl,
+        sameAs: [branch.mapUrl, facebookUrl, instagramUrl],
+        address: {
+            "@type": "PostalAddress",
+            streetAddress: `${branch.venue}, ${branch.street}`,
+            addressLocality: branch.locality,
+            postalCode: postcode,
+            addressCountry: "GB",
+        },
+        areaServed: [branch.area, ...branch.nearby].map((name) => ({ "@type": "Place", name })),
+        paymentAccepted: "Cash, Card, Bank Transfer, Childcare Vouchers",
+    },
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: websiteUrl },
+            { "@type": "ListItem", position: 2, name: `Tuition in ${branch.area}`, item: pageUrl },
+        ],
+    },
+];
+---
+
+<Layout title={title} description={description} path={path} homeSchema={false}>
+    {jsonLd.map((data) => <script slot="head" type="application/ld+json" set:html={JSON.stringify(data)} is:inline />)}
+
+    <Hero
+        compact
+        heading={`Tuition in <span class="hero-highlight">${branch.area}</span>`}
+        intro={`OFSTED-registered small-group tuition for ages 5-18 at ${branch.venue}, ${branch.street}, ${postcode}. Maths, English, Science and 11+ preparation.`}
+        actions={[
+            { label: `Call ${phoneNumber}`, href: `tel:${phoneNumberLink}` },
+            { label: "Get directions", href: branch.mapUrl, external: true, secondary: true },
+        ]}
+    />
+    <BranchDetails branch={branch} />
+    <BranchWhy branch={branch} />
+    <Approach />
+    <Testimonials />
+    <Faq items={faqs} heading={`Tuition in ${branch.area}: common questions`} />
+    <Branches highlight={branch.slug} intro={`You're viewing TuitionBase ${branch.area}. We also run centres at the locations below.`} />
+    <Contact />
+</Layout>

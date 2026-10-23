@@ -1,15 +1,19 @@
 ---
 import { websiteUrl } from "../../config/constants";
+
+const {
+    title = "Tuition in London | Maths, English, Science & 11+ | TuitionBase",
+    description = "OFSTED-registered tuition in London for ages 5-18. Small-group Maths, English, Science and 11+ tuition from KS1 to A Level at centres in Enfield, Edmonton and Forest Gate.",
+    path = "/",
+} = Astro.props;
+const pageUrl = `${websiteUrl}${path}`;
 ---
 
-<meta
-    name="description"
-    content="Professional tuition centres across London teaching KS1 to A Level Maths, English, Biology, Chemistry and Physics with affordable pricing"
-/>
-<meta name="title" content="TuitionBase" />
+<meta name="description" content={description} />
+<meta name="title" content={title} />
 <meta
     name="Keywords"
-    content="tuition, tutors, tutors in london, english tuition, maths tuition, science tuition, tuition in london, tuition centre, gcse, london"
+    content="tuition, tutors, tutors in london, english tuition, maths tuition, science tuition, tuition in london, tuition in enfield, tuition in edmonton, tuition in forest gate, 11+ tuition london, gcse tuition london, tuition centre, gcse, london"
 />
 
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
@@ -22,10 +26,10 @@ import { websiteUrl } from "../../config/constants";
 <meta name="Author" content="tuitionbase.co.uk" />
 
 <!-- Facebook Meta Tags -->
-<meta property="og:url" content="https://tuitionbase.co.uk/" />
+<meta property="og:url" content={pageUrl} />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="TuitionBase" />
-<meta property="og:description" content="Offering expert and personalised tuition at affordable prices." />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
 <meta property="og:image" content={`${websiteUrl}/content/images/meta/og_image_630.png`} />
 <meta property="og:locale" content="en_GB" />
 <meta property="og:site_name" content="TuitionBase" />
@@ -35,12 +39,10 @@ import { websiteUrl } from "../../config/constants";
 <!-- Twitter Meta Tags -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta property="twitter:domain" content="tuitionbase.co.uk" />
-<meta property="twitter:url" content="https://tuitionbase.co.uk/" />
-<meta name="twitter:title" content="TuitionBase" />
-<meta name="twitter:description" content="Offering expert and personalised tuition at affordable prices." />
+<meta property="twitter:url" content={pageUrl} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={`${websiteUrl}/content/images/meta/og_image_630.png`} />
-
-<meta name="robots" content="index, follow" />
 
 <meta name="geo.region" content="GB-LND" />
 <meta name="geo.placename" content="London" />
@@ -61,5 +63,5 @@ import { websiteUrl } from "../../config/constants";
 <meta name="MobileOptimized" content="320" />
 
 <!-- Language and Canonical Links -->
-<link rel="canonical" href={`${websiteUrl}`} />
-<link rel="alternate" hreflang="x-default" href={`${websiteUrl}`} />
+<link rel="canonical" href={pageUrl} />
+<link rel="alternate" hreflang="x-default" href={pageUrl} />

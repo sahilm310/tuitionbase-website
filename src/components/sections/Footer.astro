@@ -1,5 +1,6 @@
 ---
-import { email, phoneNumber } from "../../config/constants";
+import { branches } from "../../config/branches";
+import { email, facebookUrl, instagramUrl, phoneNumber } from "../../config/constants";
 const BASE_URL = import.meta.env.BASE_URL;
 ---
 
@@ -16,23 +17,83 @@ const BASE_URL = import.meta.env.BASE_URL;
                 <span>{email}</span>
             </div>
         </div>
+        <nav class="footer-section" aria-labelledby="footer-find-us">
+            <h3 id="footer-find-us">Find Us Online</h3>
+            <ul class="footer-links">
+                <li>
+                    <a
+                        href={facebookUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="TuitionBase on Facebook (opens in a new tab)"
+                    >
+                        <i class="fab fa-facebook" aria-hidden="true"></i> Facebook
+                    </a>
+                </li>
+                <li>
+                    <a
+                        href={instagramUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="TuitionBase on Instagram (opens in a new tab)"
+                    >
+                        <i class="fab fa-instagram" aria-hidden="true"></i> Instagram
+                    </a>
+                </li>
+                {
+                    branches.map((branch) => (
+                        <li>
+                            <a
+                                href={branch.mapUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={`${branch.name} on Google, reviews and directions (opens in a new tab)`}
+                            >
+                                <i class="fab fa-google" aria-hidden="true" /> TB {branch.area} on Google
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+        </nav>
         <div class="footer-section">
             <h3>Accreditations</h3>
             <div class="certifications">
-                <img
-                    src={`${BASE_URL}content/images/credits/offsteadaproved.png`}
-                    alt="OFSTED Approved"
-                    class="ofsted-badge"
-                />
+                <img src={`${BASE_URL}content/images/credits/offsteadaproved.png`} alt="OFSTED Approved" class="ofsted-badge" />
             </div>
         </div>
     </div>
     <div class="footer-bottom">
-        <p>&copy; 2025 TuitionBase - An OFSTED registered centre. All rights reserved.</p>
+        <p>&copy; 2026 TuitionBase - An OFSTED registered centre. All rights reserved.</p>
     </div>
 </footer>
 
 <style lang="scss">
+    .footer-links {
+        list-style: none;
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.9;
+
+            &:hover,
+            &:focus-visible {
+                opacity: 1;
+                text-decoration: underline;
+            }
+        }
+
+        i {
+            width: 20px;
+            margin-right: 6px;
+        }
+    }
+
     /* Footer */
     .footer {
         background: #333;

@@ -1,5 +1,10 @@
 ---
-const faqs = [
+interface Props {
+    items?: { q: string; a: string; links?: { href: string; label: string }[] }[];
+    heading?: string;
+}
+
+const defaultFaqs = [
     {
         q: "What subjects does TuitionBase teach?",
         a: "We teach Maths, English, Biology, Chemistry and Physics, and specialise in 11+ preparation. We cover Key Stage 1 to A Level, including GCSE and IGCSE, across all exam boards.",
@@ -10,7 +15,7 @@ const faqs = [
     },
     {
         q: "What are the class sizes?",
-        a: "We teach small groups with a maximum of 5 students per class, so every student gets personal attention.",
+        a: "We teach small groups with a maximum of  5 students per class, so every student gets personal attention.",
     },
     {
         q: "Is TuitionBase OFSTED registered?",
@@ -23,10 +28,20 @@ const faqs = [
     {
         q: "Do you accept childcare vouchers?",
         a: "Yes, we accept childcare vouchers. Contact us on 0203 633 4822 or info@tuitionbase.co.uk to find out how to pay with them.",
+        links: [
+            { href: "https://www.gov.uk/help-with-childcare-costs/childcare-vouchers", label: "GOV.UK: Childcare vouchers" },
+            { href: "https://www.gov.uk/tax-free-childcare", label: "GOV.UK: Tax-Free Childcare (the scheme that replaced vouchers)" },
+        ],
     },
     {
         q: "Can Universal Credit help pay for childcare?",
         a: "Yes. Universal Credit can pay up to 85% of your registered childcare costs. The maximum monthly amounts are £1,071.09 for one child and £1,836.16 for two or more children.",
+        links: [
+            {
+                href: "https://www.gov.uk/help-with-childcare-costs/universal-credit",
+                label: "GOV.UK: Universal Credit and childcare costs",
+            },
+        ],
     },
     {
         q: "When are classes held?",
@@ -38,13 +53,19 @@ const faqs = [
     },
 ];
 
+const { items, heading = "Frequently Asked Questions" } = Astro.props;
+const faqs = items ?? defaultFaqs;
+
 const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map(({ q, a }) => ({
+    mainEntity: faqs.map(({ q, a, links }) => ({
         "@type": "Question",
         name: q,
-        acceptedAnswer: { "@type": "Answer", text: a },
+        acceptedAnswer: {
+            "@type": "Answer",
+            text: links?.length ? `${a} ${links.map((l) => `<a href="${l.href}">${l.label}</a>`).join(" ")}` : a,
+        },
     })),
 };
 ---
@@ -52,11 +73,11 @@ const jsonLd = {
 <section class="faq" id="faq">
     <div class="container">
         <div class="section-header">
-            <h2>Frequently Asked Questions</h2>
+            <h2>{heading}</h2>
         </div>
         <div class="faq-list">
             {
-                faqs.map(({ q, a }, i) => (
+                faqs.map(({ q, a, links }, i) => (
                     <div class="faq-item">
                         <h3>
                             <button
@@ -71,6 +92,18 @@ const jsonLd = {
                         </h3>
                         <div class="faq-answer" id={`faq-panel-${i}`} role="region" aria-labelledby={`faq-q-${i}`}>
                             <p>{a}</p>
+                            {links && (
+                                <ul class="faq-link">
+                                    {links.map((link) => (
+                                        <li>
+                                            <a href={link.href} target="_blank" rel="noopener noreferrer">
+                                                {link.label}
+                                                <span class="visually-hidden"> (opens in a new tab)</span>
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                         </div>
                     </div>
                 ))
@@ -90,6 +123,29 @@ const jsonLd = {
 </script>
 
 <style lang="scss">
+    .faq-link {
+        list-style: none;
+        padding: 0 4px 20px;
+    }
+
+    .faq-link li {
+        margin-bottom: 6px;
+    }
+
+    .faq-link a {
+        color: #1a6fb5;
+        font-weight: 600;
+    }
+
+    .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+
     .faq-list {
         max-width: 800px;
         margin: 0 auto;
