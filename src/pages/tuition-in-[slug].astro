@@ -104,5 +104,5 @@ const jsonLd = [
     <Testimonials />
     <Faq items={faqs} heading={`Tuition in ${branch.area}: common questions`} />
     <Branches highlight={branch.slug} intro={`You're viewing TuitionBase ${branch.area}. We also run centres at the locations below.`} />
-    <Contact />
+    <Contact defaultBranch={branch.area} />
 </Layout>

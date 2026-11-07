@@ -1,163 +1,992 @@
 ---
 import { branches } from "../../config/branches";
 import { email, phoneNumber, phoneNumberLink } from "../../config/constants";
+
+interface Props {
+    defaultBranch?: string;
+}
+
+const { defaultBranch } = Astro.props;
+const STUDENT_KEY = "9b752372-6524-4152-8c7b-c915610d3627";
+const TEACHER_KEY = "8dbc6bff-5b0f-4175-a7d2-03aefe74406f";
 ---
 
 <section class="contact-section" id="contact">
     <div class="container">
         <div class="section-header">
-            <h2>Contact Us</h2>
-            <p>Get in touch to start your child's educational journey with TuitionBase</p>
+            <h2>Get in Touch</h2>
+            <p>Send an enquiry online or contact our team directly for student tuition and tutor vacancies.</p>
         </div>
-        <div class="contact-content">
-            <div class="contact-info-main">
-                <p class="contact-intro">
-                    If you would like to enrol for any of the subjects we offer or have any questions please contact us on:
-                </p>
-                <div class="contact-details">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
+
+        <div class="contact-layout">
+            <!-- Main Form Card -->
+            <div class="form-card">
+                <!-- Tab Switcher -->
+                <div class="tab-header" role="tablist" aria-label="Enquiry Types">
+                    <button
+                        type="button"
+                        class="tab-btn active"
+                        id="tab-student-btn"
+                        role="tab"
+                        aria-selected="true"
+                        aria-controls="form-panel"
+                        data-type="student"
+                    >
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Student &amp; Parent Enquiry</span>
+                    </button>
+                    <button
+                        type="button"
+                        class="tab-btn"
+                        id="tab-teacher-btn"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="form-panel"
+                        data-type="teacher"
+                    >
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Tutor Enquiry</span>
+                    </button>
+                </div>
+
+                <div class="form-intro">
+                    <p id="form-intro-text">
+                        Enquire about joining our small-group classes (max 5 students) for Maths, English, Science, and 11+.
+                    </p>
+                </div>
+
+                <form
+                    id="tuition-contact-form"
+                    class="contact-form"
+                    novalidate
+                    data-student-key={STUDENT_KEY}
+                    data-teacher-key={TEACHER_KEY}
+                >
+                    <!-- Honeypot anti-spam for bots -->
+                    <input type="checkbox" name="botcheck" class="hidden-botcheck" tabindex="-1" autocomplete="off" />
+
+                    <!-- Common Fields Grid -->
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="contact-name">Full Name <span class="required">*</span></label>
+                            <input
+                                type="text"
+                                id="contact-name"
+                                name="name"
+                                placeholder="e.g. Sarah Jenkins"
+                                required
+                                autocomplete="name"
+                            />
+                            <span class="field-error" id="name-error"></span>
                         </div>
-                        <div class="contact-text">
-                            <h3>Phone</h3>
-                            <a href={`tel:${phoneNumberLink}`} class="contact-link">{phoneNumber}</a>
+
+                        <div class="form-group">
+                            <label for="contact-email">Email Address <span class="required">*</span></label>
+                            <input
+                                type="email"
+                                id="contact-email"
+                                name="email"
+                                placeholder="e.g. sarah@example.com"
+                                required
+                                autocomplete="email"
+                            />
+                            <span class="field-error" id="email-error"></span>
                         </div>
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon whatsapp-icon">
-                            <i class="fab fa-whatsapp"></i>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="contact-phone">Phone / WhatsApp Number <span class="required">*</span></label>
+                            <input type="tel" id="contact-phone" name="phone" placeholder="e.g. 07123 456789" required autocomplete="tel" />
+                            <span class="field-error" id="phone-error"></span>
                         </div>
-                        <div class="contact-text">
-                            <h3>WhatsApp</h3>
-                            <p>Quick and easy way to get in touch with us instantly.</p>
-                            <a
-                                target="_blank"
-                                href="https://wa.me/447932391843?text=I'm%20enquiring%20about%20tuition"
-                                class="whatsapp-btn-contact"
-                            >
-                                Chat Now
-                            </a>
+
+                        <div class="form-group">
+                            <label for="contact-centre">Preferred Tuition Centre</label>
+                            <div class="select-wrapper">
+                                <select id="contact-centre" name="centre">
+                                    <option value="Any / Flexible">Any Centre / Flexible</option>
+                                    {
+                                        branches.map((b) => (
+                                            <option value={b.name} selected={defaultBranch === b.area || defaultBranch === b.name}>
+                                                {b.name} ({b.area} - {b.venue})
+                                            </option>
+                                        ))
+                                    }
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
+
+                    <!-- Dynamic: Student Fields -->
+                    <div id="student-fields" class="dynamic-section">
+                        <div class="form-group">
+                            <label for="student-grade">Student Year Group<span class="required">*</span></label>
+                            <div class="select-wrapper">
+                                <select id="student-grade" name="student_grade">
+                                    <option value="" disabled selected>Select school year / stage</option>
+                                    <option value="Key Stage 1 (Years 1 - 2)">Key Stage 1 (Years 1 - 2, Ages 5-7)</option>
+                                    <option value="Key Stage 2 (Years 3 - 6)">Key Stage 2 (Years 3 - 6, Ages 7-11)</option>
+                                    <option value="11+ Preparation (Years 4 - 6)">11+ Exam Preparation (Years 4 - 6)</option>
+                                    <option value="Key Stage 3 (Years 7 - 9)">Key Stage 3 (Years 7 - 9, Ages 11-14)</option>
+                                    <option value="GCSE / IGCSE (Years 10 - 11)">GCSE / IGCSE (Years 10 - 11, Ages 14-16)</option>
+                                    <option value="A Level (Years 12 - 13)">A Level (Years 12 - 13, Ages 16-18)</option>
+                                    <option value="Multiple Children">Multiple Children</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <span class="field-error" id="grade-error"></span>
                         </div>
-                        <div class="contact-text">
-                            <h3>Email</h3>
-                            <p>Email us with details of the nature of your enquiry and we will get back to you.</p>
-                            <a href={`mailto:${email}`} class="contact-link">{email}</a>
+
+                        <div class="form-group">
+                            <label class="group-label">Subjects Needed (Select all that apply)</label>
+                            <div class="pills-grid">
+                                <label class="pill-label">
+                                    <input type="checkbox" name="student_subjects" value="Maths" />
+                                    <span>Maths</span>
+                                </label>
+                                <label class="pill-label">
+                                    <input type="checkbox" name="student_subjects" value="English" />
+                                    <span>English</span>
+                                </label>
+                                <label class="pill-label">
+                                    <input type="checkbox" name="student_subjects" value="Science" />
+                                    <span>Science (Bio/Chem/Phys)</span>
+                                </label>
+                                <label class="pill-label">
+                                    <input type="checkbox" name="student_subjects" value="11+ Preparation" />
+                                    <span>11+ Preparation</span>
+                                </label>
+                            </div>
                         </div>
+                    </div>
+
+                    <!-- Dynamic: Teacher Fields -->
+                    <div id="teacher-fields" class="dynamic-section" style="display: none;">
+                        <div class="form-group">
+                            <label class="group-label">Subjects You Can Teach <span class="required">*</span></label>
+                            <div class="pills-grid">
+                                <label class="pill-label">
+                                    <input type="checkbox" name="teacher_subjects" value="Maths" />
+                                    <span>Maths</span>
+                                </label>
+                                <label class="pill-label">
+                                    <input type="checkbox" name="teacher_subjects" value="English" />
+                                    <span>English</span>
+                                </label>
+                                <label class="pill-label">
+                                    <input type="checkbox" name="teacher_subjects" value="Biology" />
+                                    <span>Biology</span>
+                                </label>
+                                <label class="pill-label">
+                                    <input type="checkbox" name="teacher_subjects" value="Chemistry" />
+                                    <span>Chemistry</span>
+                                </label>
+                                <label class="pill-label">
+                                    <input type="checkbox" name="teacher_subjects" value="Physics" />
+                                    <span>Physics</span>
+                                </label>
+                                <label class="pill-label">
+                                    <input type="checkbox" name="teacher_subjects" value="11+ Preparation" />
+                                    <span>11+ Prep</span>
+                                </label>
+                            </div>
+                            <span class="field-error" id="teacher-subject-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="group-label">Key Stages You Can Teach</label>
+                            <div class="pills-grid">
+                                <label class="pill-label">
+                                    <input type="checkbox" name="teacher_levels" value="Primary (KS1 & KS2)" />
+                                    <span>Primary (KS1-2)</span>
+                                </label>
+                                <label class="pill-label">
+                                    <input type="checkbox" name="teacher_levels" value="Secondary (KS3)" />
+                                    <span>Secondary (KS3)</span>
+                                </label>
+                                <label class="pill-label">
+                                    <input type="checkbox" name="teacher_levels" value="GCSE / IGCSE" />
+                                    <span>GCSE / IGCSE</span>
+                                </label>
+                                <label class="pill-label">
+                                    <input type="checkbox" name="teacher_levels" value="A Level" />
+                                    <span>A Level</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="teacher-experience">Qualifications &amp; Experience</label>
+                            <input
+                                type="text"
+                                id="teacher-experience"
+                                name="teacher_experience"
+                                placeholder="e.g. BSc Mathematics, PGCE, QTS, 3 years GCSE teaching experience"
+                            />
+                        </div>
+                    </div>
+
+                    <!-- Message / Notes -->
+                    <div class="form-group">
+                        <label for="contact-notes">Notes or Message</label>
+                        <textarea
+                            id="contact-notes"
+                            name="notes"
+                            rows="4"
+                            placeholder="Please share any specific goals, child's current grades, availability, or questions..."></textarea>
+                    </div>
+
+                    <!-- Status Notification Banner -->
+                    <div id="form-status" class="status-banner" style="display: none;" role="alert"></div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="submit-btn" class="submit-btn">
+                        <span class="btn-text">
+                            <i class="fas fa-paper-plane"></i>
+                            <span id="submit-btn-label">Send Student Enquiry</span>
+                        </span>
+                        <span class="btn-spinner" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i> Sending Enquiry...
+                        </span>
+                    </button>
+
+                    <p class="form-privacy-note">
+                        <i class="fas fa-shield-alt"></i> Your details are private and will only be used to respond to your enquiry.
+                    </p>
+                </form>
+            </div>
+
+            <!-- Direct Contact Sidebar -->
+            <div class="contact-sidebar">
+                <div class="sidebar-card">
+                    <h3>Prefer to contact us directly?</h3>
+                    <p class="sidebar-intro">
+                        Feel free to call, WhatsApp, or email us. We are available on weekends and weekdays to answer any questions.
+                    </p>
+
+                    <div class="direct-methods">
+                        <a href={`tel:${phoneNumberLink}`} class="direct-item">
+                            <div class="icon-circle phone-circle">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="direct-meta">
+                                <span class="label">Call us directly</span>
+                                <span class="value">{phoneNumber}</span>
+                            </div>
+                        </a>
+
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href="https://wa.me/447932391843?text=I'm%20enquiring%20about%20tuition"
+                            class="direct-item"
+                        >
+                            <div class="icon-circle whatsapp-circle">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="direct-meta">
+                                <span class="label">Chat on WhatsApp</span>
+                                <span class="value">Instant response</span>
+                            </div>
+                        </a>
+
+                        <a href={`mailto:${email}`} class="direct-item">
+                            <div class="icon-circle email-circle">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="direct-meta">
+                                <span class="label">Send an email</span>
+                                <span class="value">{email}</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="ofsted-badge-box">
+                        <div class="badge-title"><i class="fas fa-award"></i> OFSTED-Registered Centres</div>
+                        <p>
+                            Small groups (max 5 students), experienced tutors, and childcare vouchers accepted at all our London branches.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</section>
 
-    <style lang="scss">
-        /* Contact Section */
-        .contact-section {
-            background: white;
+<script>
+    function setupContactForm() {
+        const form = document.getElementById("tuition-contact-form") as HTMLFormElement | null;
+        if (!form) return;
+
+        const tabStudentBtn = document.getElementById("tab-student-btn");
+        const tabTeacherBtn = document.getElementById("tab-teacher-btn");
+        const studentFields = document.getElementById("student-fields");
+        const teacherFields = document.getElementById("teacher-fields");
+        const formIntroText = document.getElementById("form-intro-text");
+        const submitBtnLabel = document.getElementById("submit-btn-label");
+        const submitBtn = document.getElementById("submit-btn") as HTMLButtonElement | null;
+        const btnText = submitBtn?.querySelector(".btn-text") as HTMLElement | null;
+        const btnSpinner = submitBtn?.querySelector(".btn-spinner") as HTMLElement | null;
+        const statusBanner = document.getElementById("form-status");
+        const notesInput = document.getElementById("contact-notes") as HTMLTextAreaElement | null;
+
+        let currentType: "student" | "teacher" = "student";
+
+        function switchTab(type: "student" | "teacher") {
+            currentType = type;
+            if (type === "student") {
+                tabStudentBtn?.classList.add("active");
+                tabStudentBtn?.setAttribute("aria-selected", "true");
+                tabTeacherBtn?.classList.remove("active");
+                tabTeacherBtn?.setAttribute("aria-selected", "false");
+
+                if (studentFields) studentFields.style.display = "block";
+                if (teacherFields) teacherFields.style.display = "none";
+                if (formIntroText) {
+                    formIntroText.textContent =
+                        "Enquire about joining our small-group classes (max 5 students) for Maths, English, Science, and 11+.";
+                }
+                if (submitBtnLabel) submitBtnLabel.textContent = "Send Student Enquiry";
+                if (notesInput) {
+                    notesInput.placeholder = "Please share any specific goals, child's current grades, availability, or questions...";
+                }
+            } else {
+                tabTeacherBtn?.classList.add("active");
+                tabTeacherBtn?.setAttribute("aria-selected", "true");
+                tabStudentBtn?.classList.remove("active");
+                tabStudentBtn?.setAttribute("aria-selected", "false");
+
+                if (studentFields) studentFields.style.display = "none";
+                if (teacherFields) teacherFields.style.display = "block";
+                if (formIntroText) {
+                    formIntroText.textContent =
+                        "Apply to tutor with TuitionBase. We are looking for passionate, high-achieving educators for weekend classes.";
+                }
+                if (submitBtnLabel) submitBtnLabel.textContent = "Send Teacher Application";
+                if (notesInput) {
+                    notesInput.placeholder = "Please share your availability (days/times), teaching background, or any questions...";
+                }
+            }
+            clearErrors();
+            if (statusBanner) statusBanner.style.display = "none";
         }
 
-        .contact-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
+        tabStudentBtn?.addEventListener("click", () => switchTab("student"));
+        tabTeacherBtn?.addEventListener("click", () => switchTab("teacher"));
+
+        function clearErrors() {
+            document.querySelectorAll(".field-error").forEach((el) => (el.textContent = ""));
+            document.querySelectorAll(".has-error").forEach((el) => el.classList.remove("has-error"));
         }
 
-        .contact-intro {
-            font-size: 20px;
-            color: #333;
-            margin-bottom: 48px;
-            line-height: 1.6;
-        }
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            clearErrors();
 
-        .contact-details {
-            display: flex;
-            justify-content: center;
+            const studentKey = form.dataset.studentKey || "";
+            const teacherKey = form.dataset.teacherKey || "";
+            const activeKey = currentType === "student" ? studentKey : teacherKey;
+
+            const nameInput = document.getElementById("contact-name") as HTMLInputElement;
+            const emailInput = document.getElementById("contact-email") as HTMLInputElement;
+            const phoneInput = document.getElementById("contact-phone") as HTMLInputElement;
+            const centreSelect = document.getElementById("contact-centre") as HTMLSelectElement;
+            const notesInput = document.getElementById("contact-notes") as HTMLTextAreaElement;
+            const botcheckInput = form.querySelector('input[name="botcheck"]') as HTMLInputElement;
+
+            let hasError = false;
+
+            // Validate Name
+            if (!nameInput.value.trim()) {
+                showError("contact-name", "name-error", "Please enter your full name.");
+                hasError = true;
+            }
+
+            // Validate Email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailInput.value.trim() || !emailRegex.test(emailInput.value.trim())) {
+                showError("contact-email", "email-error", "Please enter a valid email address.");
+                hasError = true;
+            }
+
+            // Validate Phone
+            const phoneClean = phoneInput.value.replace(/[\s\-\(\)]/g, "");
+            if (!phoneClean || phoneClean.length < 7) {
+                showError("contact-phone", "phone-error", "Please provide a valid phone number.");
+                hasError = true;
+            }
+
+            // Type-specific validation
+            let studentGrade = "";
+            let selectedSubjects: string[] = [];
+            let teacherLevels: string[] = [];
+            let teacherExp = "";
+
+            if (currentType === "student") {
+                const gradeSelect = document.getElementById("student-grade") as HTMLSelectElement;
+                if (!gradeSelect.value) {
+                    showError("student-grade", "grade-error", "Please select the student's year group or key stage.");
+                    hasError = true;
+                } else {
+                    studentGrade = gradeSelect.value;
+                }
+
+                form.querySelectorAll('input[name="student_subjects"]:checked').forEach((box) => {
+                    selectedSubjects.push((box as HTMLInputElement).value);
+                });
+            } else {
+                form.querySelectorAll('input[name="teacher_subjects"]:checked').forEach((box) => {
+                    selectedSubjects.push((box as HTMLInputElement).value);
+                });
+
+                if (selectedSubjects.length === 0) {
+                    const errEl = document.getElementById("teacher-subject-error");
+                    if (errEl) errEl.textContent = "Please select at least one subject you can teach.";
+                    hasError = true;
+                }
+
+                form.querySelectorAll('input[name="teacher_levels"]:checked').forEach((box) => {
+                    teacherLevels.push((box as HTMLInputElement).value);
+                });
+
+                const expInput = document.getElementById("teacher-experience") as HTMLInputElement;
+                teacherExp = expInput.value.trim();
+            }
+
+            if (hasError) return;
+
+            // Honeypot check
+            if (botcheckInput && botcheckInput.checked) {
+                console.warn("Spam bot detected.");
+                return;
+            }
+
+            // Build Payload for Web3Forms
+            const payload: Record<string, any> = {
+                access_key: activeKey,
+                from_name: "TuitionBase Website",
+                subject:
+                    currentType === "student"
+                        ? `New Student Enquiry: ${nameInput.value.trim()} (${studentGrade})`
+                        : `New Teacher Application: ${nameInput.value.trim()}`,
+                name: nameInput.value.trim(),
+                email: emailInput.value.trim(),
+                phone: phoneInput.value.trim(),
+                "Enquiry Type": currentType === "student" ? "Student & Parent Enquiry" : "Tutor Enquiry",
+                "Preferred Centre": centreSelect.value,
+                "Notes / Message": notesInput.value.trim() || "No additional notes provided.",
+            };
+
+            if (currentType === "student") {
+                payload["Student Grade / Key Stage"] = studentGrade;
+                payload["Subjects Required"] = selectedSubjects.length > 0 ? selectedSubjects.join(", ") : "Not specified";
+            } else {
+                payload["Subjects Can Teach"] = selectedSubjects.join(", ");
+                payload["Key Stages Can Teach"] = teacherLevels.length > 0 ? teacherLevels.join(", ") : "Not specified";
+                payload["Qualifications & Experience"] = teacherExp || "Not provided";
+            }
+
+            // Set loading UI
+            if (submitBtn) submitBtn.disabled = true;
+            if (btnText) btnText.style.display = "none";
+            if (btnSpinner) btnSpinner.style.display = "inline-flex";
+            if (statusBanner) statusBanner.style.display = "none";
+
+            try {
+                const response = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                    },
+                    body: JSON.stringify(payload),
+                });
+
+                const result = await response.json();
+
+                if (response.status === 200 && result.success) {
+                    if (statusBanner) {
+                        statusBanner.className = "status-banner status-success";
+                        statusBanner.style.display = "block";
+                        statusBanner.innerHTML = `
+                            <div class="status-content">
+                                <i class="fas fa-check-circle"></i>
+                                <div>
+                                    <strong>Thank you! Your enquiry has been sent.</strong>
+                                    <p>We have sent your details to <code>info@tuitionbase.co.uk</code>. A member of our team will be in touch shortly.</p>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    form.reset();
+                    // Restore default centre if needed
+                    switchTab(currentType);
+                } else {
+                    throw new Error(result.message || "Submission failed");
+                }
+            } catch (err) {
+                console.error("Form error:", err);
+                if (statusBanner) {
+                    statusBanner.className = "status-banner status-error";
+                    statusBanner.style.display = "block";
+                    statusBanner.innerHTML = `
+                        <div class="status-content">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <div>
+                                <strong>Unable to send enquiry.</strong>
+                                <p>Please try again or contact us directly via WhatsApp or phone at <a href="tel:02036334822">0203 633 4822</a>.</p>
+                            </div>
+                        </div>
+                    `;
+                }
+            } finally {
+                if (submitBtn) submitBtn.disabled = false;
+                if (btnText) btnText.style.display = "inline-flex";
+                if (btnSpinner) btnSpinner.style.display = "none";
+            }
+        });
+
+        function showError(inputId: string, errorId: string, message: string) {
+            const input = document.getElementById(inputId);
+            const err = document.getElementById(errorId);
+            if (input) input.classList.add("has-error");
+            if (err) err.textContent = message;
+        }
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", setupContactForm);
+    } else {
+        setupContactForm();
+    }
+</script>
+
+<style lang="scss">
+    .contact-section {
+        background: #fbfcfe;
+        padding: 80px 24px;
+        font-family: Arial, "Gontserrat", sans-serif;
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
             gap: 32px;
-            margin-top: 32px;
+            align-items: start;
+            margin-top: 24px;
+        }
+
+        .form-card,
+        .sidebar-card {
+            background: #fff;
+            border-radius: 16px;
+            border: 1px solid #e8eef3;
+            box-shadow: 0 8px 30px rgba(5, 87, 118, 0.07);
+        }
+        .form-card {
+            overflow: hidden;
+        }
+
+        .tab-header {
+            display: flex;
+            background: #f1f5f9;
+            border-bottom: 2px solid #e2e8f0;
+
+            .tab-btn {
+                flex: 1;
+                padding: 15px 12px;
+                font-size: 15px;
+                font-weight: 700;
+                color: #586b7b;
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    color: #055776;
+                    background: #e9eff5;
+                }
+                &.active {
+                    color: #055776;
+                    background: #fff;
+                    box-shadow: 0 4px 12px rgba(11, 178, 240, 0.12);
+                    border-bottom: 3px solid #0bb2f0;
+                }
+            }
+        }
+
+        .form-intro {
+            padding: 18px 28px 0;
+            p {
+                color: #55697a;
+                font-size: 15px;
+                margin: 0;
+                line-height: 1.5;
+            }
+        }
+
+        .contact-form {
+            padding: 18px 28px 28px;
+        }
+        .hidden-botcheck {
+            display: none !important;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+
+            label,
+            .group-label {
+                font-size: 14px;
+                font-weight: 700;
+                color: #1e293b;
+                margin-bottom: 6px;
+                .required {
+                    color: #e11d48;
+                }
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="tel"],
+            select,
+            textarea {
+                width: 100%;
+                padding: 11px 14px;
+                font-size: 15px;
+                border: 1.5px solid #cbd5e1;
+                border-radius: 9px;
+                background: #fff;
+                color: #1e293b;
+                font-family: inherit;
+                transition:
+                    border-color 0.2s,
+                    box-shadow 0.2s;
+
+                &:focus {
+                    outline: none;
+                    border-color: #0bb2f0;
+                    box-shadow: 0 0 0 3px rgba(11, 178, 240, 0.18);
+                }
+                &.has-error {
+                    border-color: #e11d48;
+                    background: #fff1f2;
+                }
+                &::placeholder {
+                    color: #94a3b8;
+                }
+            }
+
+            textarea {
+                resize: vertical;
+                min-height: 85px;
+            }
+        }
+
+        .select-wrapper {
+            position: relative;
+            &::after {
+                content: "▼";
+                font-size: 10px;
+                color: #64748b;
+                position: absolute;
+                right: 14px;
+                top: 50%;
+                transform: translateY(-50%);
+                pointer-events: none;
+            }
+            select {
+                appearance: none;
+                padding-right: 32px;
+                cursor: pointer;
+            }
+        }
+
+        .field-error {
+            color: #e11d48;
+            font-size: 12px;
+            margin-top: 4px;
+            min-height: 16px;
+            font-weight: 600;
+        }
+
+        .pills-grid {
+            display: flex;
             flex-wrap: wrap;
+            gap: 8px;
+
+            .pill-label {
+                cursor: pointer;
+                input {
+                    display: none;
+                }
+                span {
+                    display: inline-block;
+                    padding: 7px 14px;
+                    font-size: 13px;
+                    font-weight: 600;
+                    color: #334155;
+                    background: #f8fafc;
+                    border: 1.5px solid #cbd5e1;
+                    border-radius: 20px;
+                    transition: all 0.2s ease;
+                    user-select: none;
+                }
+                &:hover span {
+                    border-color: #0bb2f0;
+                    color: #0bb2f0;
+                    background: #f0f9ff;
+                }
+                input:checked + span {
+                    background: #055776;
+                    color: #fff;
+                    border-color: #055776;
+                    box-shadow: 0 2px 6px rgba(5, 87, 118, 0.25);
+                }
+            }
         }
 
-        .contact-item {
-            background: #f8f9fa;
-            padding: 32px;
-            border-radius: 15px;
-            text-align: center;
-            transition:
-                transform 0.3s,
-                box-shadow 0.3s;
-            flex: 1;
-            min-width: 250px;
-            max-width: 300px;
+        .status-banner {
+            padding: 14px 16px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            .status-content {
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                i {
+                    font-size: 20px;
+                    margin-top: 2px;
+                }
+                strong {
+                    display: block;
+                    font-size: 14px;
+                    margin-bottom: 2px;
+                }
+                p {
+                    margin: 0;
+                    font-size: 13px;
+                    line-height: 1.4;
+                }
+            }
+            &.status-success {
+                background: #ecfdf5;
+                border: 1px solid #10b981;
+                color: #065f46;
+                i {
+                    color: #10b981;
+                }
+            }
+            &.status-error {
+                background: #fff1f2;
+                border: 1px solid #f43f5e;
+                color: #9f1239;
+                i {
+                    color: #f43f5e;
+                }
+            }
         }
 
-        .contact-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .contact-icon {
-            width: 80px;
-            height: 80px;
+        .submit-btn {
+            width: 100%;
             background: linear-gradient(135deg, #0bb2f0, #00acec);
-            border-radius: 50%;
+            color: #fff;
+            border: none;
+            padding: 15px 24px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 22px;
-            color: white;
-            font-size: 32px;
-        }
-
-        .whatsapp-icon {
-            background: linear-gradient(135deg, #25d366, #128c7e);
-        }
-
-        .contact-item h3 {
-            color: #055776;
-            margin-bottom: 16px;
-            font-size: 22px;
-        }
-
-        .contact-item p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 16px;
-        }
-
-        .contact-link {
-            color: #0bb2f0;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 20px;
-            transition: color 0.3s;
-        }
-
-        .contact-link:hover {
-            color: #055776;
-        }
-
-        .whatsapp-btn-contact {
-            background: #25d366;
-            color: white;
-            padding: 12px 32px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-block;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(11, 178, 240, 0.35);
             transition:
-                background 0.3s,
-                transform 0.3s;
+                transform 0.2s,
+                box-shadow 0.2s,
+                background 0.2s;
+
+            &:hover:not(:disabled) {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(11, 178, 240, 0.45);
+                background: linear-gradient(135deg, #00acec, #055776);
+            }
+            &:disabled {
+                opacity: 0.7;
+                cursor: not-allowed;
+            }
+            .btn-text,
+            .btn-spinner {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+            }
         }
 
-        .whatsapp-btn-contact:hover {
-            background: #128c7e;
-            transform: translateY(-2px);
-            color: white;
+        .form-privacy-note {
+            text-align: center;
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            i {
+                color: #0bb2f0;
+            }
         }
-    </style>
-</section>
+
+        .sidebar-card {
+            padding: 28px 24px;
+            h3 {
+                color: #055776;
+                font-size: 20px;
+                font-weight: 700;
+                margin-bottom: 10px;
+            }
+            .sidebar-intro {
+                color: #55697a;
+                font-size: 14px;
+                line-height: 1.5;
+                margin-bottom: 20px;
+            }
+        }
+
+        .direct-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .direct-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            text-decoration: none;
+            transition:
+                transform 0.2s,
+                border-color 0.2s,
+                box-shadow 0.2s;
+
+            &:hover {
+                transform: translateX(4px);
+                background: #fff;
+                border-color: #0bb2f0;
+                box-shadow: 0 4px 12px rgba(11, 178, 240, 0.12);
+                .label {
+                    color: #0bb2f0;
+                }
+            }
+
+            .icon-circle {
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #fff;
+                font-size: 18px;
+                flex-shrink: 0;
+                &.phone-circle {
+                    background: linear-gradient(135deg, #0bb2f0, #00acec);
+                }
+                &.whatsapp-circle {
+                    background: linear-gradient(135deg, #25d366, #128c7e);
+                }
+                &.email-circle {
+                    background: linear-gradient(135deg, #055776, #094760);
+                }
+            }
+
+            .direct-meta {
+                display: flex;
+                flex-direction: column;
+                .label {
+                    font-size: 12px;
+                    color: #64748b;
+                    font-weight: 600;
+                    transition: color 0.2s;
+                }
+                .value {
+                    font-size: 15px;
+                    font-weight: 700;
+                    color: #1e293b;
+                }
+            }
+        }
+
+        .ofsted-badge-box {
+            background: #f0f9ff;
+            border: 1px dashed #7dd3fc;
+            padding: 14px;
+            border-radius: 10px;
+            .badge-title {
+                color: #0369a1;
+                font-weight: 700;
+                font-size: 13px;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                margin-bottom: 4px;
+                i {
+                    color: #0bb2f0;
+                }
+            }
+            p {
+                font-size: 12px;
+                color: #475569;
+                line-height: 1.5;
+                margin: 0;
+            }
+        }
+
+        @media (max-width: 960px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            padding: 60px 16px;
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            .tab-header .tab-btn {
+                padding: 12px 8px;
+                font-size: 13px;
+                gap: 6px;
+            }
+            .form-intro,
+            .contact-form {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            .sidebar-card {
+                padding: 20px 16px;
+            }
+        }
+    }
+</style>
