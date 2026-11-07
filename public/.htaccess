@@ -10,11 +10,6 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
 RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
-# Remove trailing slash from URLs (except for directories)
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{THE_REQUEST} \s/+([^?]*?)/?(\?[^\s]*)?\s [NC]
-RewriteRule ^ /%1%2 [R=301,L]
-
 # Set UTF-8 charset for HTML files
 <IfModule mod_headers.c>
     <FilesMatch "\.(html|htm)$">
